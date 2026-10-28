@@ -1,3 +1,5 @@
+![A captain steering a ship from the wheelhouse](docs/assets/banner.jpg)
+
 # wheelhouse
 
 Agent skills for building software with AI **while you keep the wheel**. A team lead turns an initiative into vertical stories, and each story is then refined and built test-first, either with you navigating each step or delegated with checkpoints. A clean-context reviewer verifies the result, and you sign it off.
@@ -92,6 +94,8 @@ wheelhouse only ships its own skills. Stack-specific skills (Drizzle, Supabase, 
 ## Credits
 
 The `backlog`, `story` and `pair` workflows are adapted from [hola-ai](https://github.com/nschurmann/hola-ai) by Nicolas Schurmann (Hola Mundo), MIT licensed. The team-lead lifecycle, feasibility gate and checks come from [bitIO/opencode-agents](https://github.com/bitIO/opencode-agents).
+
+The banner was generated with Stable Diffusion XL 1.0 in ComfyUI.
 
 ## License
 
