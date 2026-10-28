@@ -35,7 +35,7 @@ expect_fail broken-link "broken link" \
 expect_fail missing-guard "explicit-invocation guard" \
   "grep -v 'Only run this when I invoke it explicitly' skills/workflow/pair/SKILL.md > x && mv x skills/workflow/pair/SKILL.md"
 expect_fail manual-knowledge "only workflow skills" \
-  "awk '{ print } /^description:/ { print \"disable-model-invocation: true\" }' skills/knowledge/fcalle-dev-git/SKILL.md > x && mv x skills/knowledge/fcalle-dev-git/SKILL.md"
+  "awk '{ print } /^description:/ { print \"disable-model-invocation: true\" }' skills/knowledge/conventions-git/SKILL.md > x && mv x skills/knowledge/conventions-git/SKILL.md"
 expect_fail unquoted-colon "needs quoting" \
   "mkdir -p skills/knowledge/colon && printf -- '---\nname: colon\ndescription: Use for: everything\n---\n' > skills/knowledge/colon/SKILL.md"
 expect_fail unknown-skill-ref "unknown skill" \
@@ -43,6 +43,8 @@ expect_fail unknown-skill-ref "unknown skill" \
 expect_fail agent-access "access must be read-only" \
   "sed 's/^access: read-only$/access: full/' agents/reviewer.md > x && mv x agents/reviewer.md"
 expect_fail missing-agent "reviewer" "rm agents/reviewer.md"
+expect_fail conventions-precedence "repo's own rules win" \
+  "grep -v 'win over these' skills/knowledge/conventions-git/SKILL.md > x && mv x skills/knowledge/conventions-git/SKILL.md"
 expect_fail builtin-agent-name "collides with a built-in" \
   "sed 's/^name: investigator$/name: explore/' agents/investigator.md > agents/explore.md && rm agents/investigator.md"
 

@@ -17,6 +17,7 @@ wheelhouse is a set of Agent Skills plus two subagents, installed into Claude Co
 - Keep `SKILL.md` short (about 150 lines at most); move detail to `references/`.
 - Reference other skills by their exact name in backticks (`check-security`). The validator checks they exist.
 - Agent names must not collide with built-in agents (`explore`, `general`, `plan`…).
+- `conventions-*` skills are defaults: each starts by saying the repo's own rules win, and stays stack-generic (no company, product or personal specifics).
 - Don't vendor third-party skills; list them in `docs/recommended-skills.md`.
 
 ## Before committing

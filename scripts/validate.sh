@@ -79,6 +79,9 @@ for f in "$REPO"/skills/*/*/SKILL.md; do
     # OpenCode ignores disable-model-invocation, so manual workflows must guard themselves.
     grep -q 'Only run this when I invoke it explicitly' "$f" || fail "$rel" "manual-only workflow is missing the explicit-invocation guard"
   fi
+  case "$name" in
+    conventions-*) grep -q 'win over these' "$f" || fail "$rel" "conventions skill must state that the repo's own rules win over these" ;;
+  esac
   if [ "$category" != "workflow" ] && [ "$(fm_get "$f" disable-model-invocation)" = "true" ]; then
     fail "$rel" "only workflow skills may disable model invocation"
   fi
@@ -104,7 +107,7 @@ agents=" $(for f in "$REPO"/agents/*.md; do basename "$f" .md; done | tr '\n' ' 
 sources=""
 for p in skills agents README.md docs; do [ -e "$REPO/$p" ] && sources="$sources $REPO/$p"; done
 # shellcheck disable=SC2086 # $sources is a list of repo paths without spaces in their names
-report "$(grep -rhoE '`(check-[a-z0-9-]+|fcalle-dev-[a-z0-9-]+|github-workflows|4r-code-review)`' $sources |
+report "$(grep -rhoE '`(check-[a-z0-9-]+|conventions-[a-z0-9-]+|github-workflows|4r-code-review)`' $sources |
   tr -d '`' | sort -u | unknown_refs)"
 for a in investigator reviewer; do
   case "$agents" in *" $a "*) ;; *) fail "agents" "workflows reference the '$a' agent but agents/$a.md is missing" ;; esac

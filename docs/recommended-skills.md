@@ -16,7 +16,7 @@ wheelhouse ships only its own skills. Install stack-specific skills from their m
 
 Several skills that compete for the same trigger make the model's choice unpredictable. Keep **one** per concern:
 
-- **One Docker skill.** `fcalle-dev-docker` covers the conventions; add a platform skill (such as `render-docker`) only if you deploy there.
+- **One Docker skill.** `conventions-docker` covers the conventions; add a platform skill (such as `render-docker`) only if you deploy there.
 - **One frontend design skill.** Pick one; they give conflicting directions.
 - **One browser-automation skill.** Pick one; some claim priority over every other tool.
 - **One code-review skill.** `4r-code-review`, plus `check-*` skills for depth.

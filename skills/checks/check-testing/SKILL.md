@@ -5,7 +5,7 @@ description: Test-quality checklist; whether tests really prove the acceptance c
 
 # Testing check
 
-A green suite only matters if the tests would fail when the behaviour breaks. For house conventions, also load `fcalle-dev-testing` (or the repo's testing doc).
+A green suite only matters if the tests would fail when the behaviour breaks. This is the review side; the rules for writing tests are in `conventions-testing` (or the repo's testing doc).
 
 ## Do the tests prove the criteria?
 
@@ -14,16 +14,14 @@ A green suite only matters if the tests would fail when the behaviour breaks. Fo
 - Assertions check the outcome the user or consumer sees (status, body, rendered text, rows written), not internal calls.
 - Bug fixes carry a regression test that reproduces the bug.
 
-## Level and boundaries
+## Trustworthiness
 
-- Prefer the highest practical level: an endpoint over a service, a component over a hook.
-- Mock only at process boundaries (network, time, filesystem, third-party APIs). Never mock code the project owns.
-- Integration tests never run against the development database.
+Flag any test that breaks the writing rules in a way that makes it unreliable:
 
-## Determinism
-
-- No sleeps. No dependence on execution order or shared mutable state. Use fixed seeds and fake clocks.
-- Each test sets up and cleans up its own data, with unique names per run when the data is shared.
+- **Wrong level**: a unit test with heavy mocks where an endpoint or component test would prove the criterion directly.
+- **Mocks of code the project owns**: the test proves the mock, not the code.
+- **Non-determinism**: sleeps, real clocks or randomness, order dependence, shared data. These are flaky by construction.
+- **Wrong environment**: integration tests that run against the development database.
 
 ## Parity tests for migrations
 
