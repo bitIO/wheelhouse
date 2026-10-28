@@ -1,0 +1,3 @@
+# The scripts print Markdown with literal backticks and OpenCode's literal $ARGUMENTS,
+# so single quotes that don't expand are intentional.
+disable=SC2016

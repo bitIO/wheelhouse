@@ -1,0 +1,34 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use the system bash 3.2 on macOS
+        if: runner.os == 'macOS'
+        run: |
+          mkdir -p "$RUNNER_TEMP/bin"
+          ln -s /bin/bash "$RUNNER_TEMP/bin/bash"
+          echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
+      - run: bash --version | head -n 1
+      - name: Install shellcheck and PyYAML
+        run: |
+          if [ "$RUNNER_OS" = "macOS" ]; then brew install shellcheck; fi
+          python3 -m pip install --quiet pyyaml || python3 -m pip install --quiet --break-system-packages pyyaml
+      - name: Shellcheck
+        run: shellcheck setup/*.sh scripts/*.sh
+      - name: Validate skills and agents
+        run: bash scripts/validate.sh
+      - name: Validator negative tests
+        run: bash scripts/test-validate.sh
+      - name: Installer end-to-end tests
+        run: bash scripts/test-install.sh
