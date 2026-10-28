@@ -4,7 +4,8 @@ set -uo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)"
 INSTALL="$REPO/setup/install.sh"
-WORK="$(mktemp -d)"
+# Resolve symlinks (macOS /var -> /private/var) so paths compare equal to the installer's `pwd -P`.
+WORK="$(cd "$(mktemp -d)" && pwd -P)"
 trap 'rm -rf "$WORK"' EXIT
 
 passed=0
