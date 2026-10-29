@@ -9,7 +9,7 @@ The author of a change must not be the only one deciding it's correct. This skil
 
 ## 1. Gather the inputs
 
-- **Story**: the issue or story block (criteria, out of scope, gate notes, checks).
+- **Story**: the issue or story block (criteria, out of scope, gate notes, checks), plus the issue's work log comments: earlier findings and decisions the reviewer should know.
 - **Change**: the diff range. Default: `git merge-base HEAD <main branch>`..HEAD plus uncommitted changes. Say which range you used.
 - **Checks**: the `check-*` skills listed in the story's gate line; add any that the diff clearly needs (it touches auth → `check-security`, migrations → `check-data`).
 - **Commands**: the repo's typecheck, lint and test commands, from `AGENTS.md` or `package.json`.
@@ -25,6 +25,7 @@ Brief for the reviewer:
 ```text
 Verify story #<n> against the change <range> in <repo path>.
 Story block: <paste criteria, out of scope, gate notes>
+Work log: <earlier findings and decisions, or "none">
 Load skills: 4r-code-review, <check-* list>
 Run: <typecheck / lint / test commands>
 Report with the reviewer output format. Don't modify files.
@@ -56,3 +57,5 @@ Not verified: <what you couldn't check, and why>
 ```
 
 FAIL means at least one blocker: an unproven criterion, failing commands, a security or data issue, or a scope violation.
+
+After the report, offer to post it to the issue as a work log comment (`github-workflows` skill): verdict, range, findings, not verified. The reviewer never posts; the session that called it does, on my yes. When `deliver` called it, don't post: the verdicts go in deliver's own comment.

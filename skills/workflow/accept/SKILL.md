@@ -12,7 +12,7 @@ Work is done when **I** sign it off, not when the tests are green. Only run this
 
 1. **Evidence.** Map each acceptance criterion to its proof: a test (file and name) or a manual check. Run the repo's full checks again and show the result.
 2. **Manual checks.** Walk me through each one, one at a time, and record my answer.
-3. **Verification.** Confirm there's a PASS or PASS_WITH_NOTES verification for the *final* diff. If the code changed since then, or there's none, run `verify` first.
+3. **Verification.** Confirm there's a PASS or PASS_WITH_NOTES verification for the *final* diff (in this session or in the issue's work log). If the code changed since then, or there's none, run `verify` first.
 4. **Gaps.** If I reject something, classify it:
    - **engineering gap** (doesn't meet a criterion as written): back to `/pair` or `/deliver`
    - **product gap** (the criterion was wrong or missing): back to `/story`, and to `lead` if it changes the epic
@@ -21,6 +21,7 @@ Work is done when **I** sign it off, not when the tests are green. Only run this
    - propose the PR title and body (`Closes #<n>`, criteria with their evidence, verification summary). Create it only on my yes.
    - report discoveries to `lead`: propose follow-up stories, don't absorb them
    - tick the story in the epic's checklist
+   - post the work log comment (`github-workflows` skill): evidence summary, my manual-check answers, gaps, follow-ups
 
 ## Epic: `/accept #<epic>`
 

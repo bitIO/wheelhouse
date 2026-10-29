@@ -10,7 +10,7 @@ We refine a single story right before building it. You propose; I decide. Only r
 
 ## Steps
 
-1. **Read the story** I give you: an issue number, pasted text or a ticket. If it belongs to an epic, read the epic too: non-goals, expensive decisions, gate notes. Then read `AGENTS.md`/`CLAUDE.md` and the code the story touches.
+1. **Read the story** I give you: an issue number, pasted text or a ticket. If it belongs to an epic, read the epic too: non-goals, expensive decisions, gate notes. Read the issue's comments as well: its work log, if earlier phases left one (`github-workflows` skill). Then read `AGENTS.md`/`CLAUDE.md` and the code the story touches.
    If the issue lists **Skills**, check them against the skills available in this session. If one is missing, tell me before going on, and offer to review and install it with the `skill-advisor` skill (it becomes available in a new session) or to continue without it.
 2. **Acceptance criteria.** Propose 2–3 in Given/When/Then form. They describe *what* the user or consumer sees or gets, never *how* it's built. For a migration slice, include the parity criteria (contract, auth, data) from the `backlog` skill's migration notes.
 3. **More than 3 criteria? Don't bloat the story; propose splitting it.** Give me the new stories in backlog format so `lead` can add them, and we continue with the first one.

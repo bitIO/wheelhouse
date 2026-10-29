@@ -174,3 +174,39 @@ Findings:
 - `/accept #105`: every criterion has its evidence, the manual check is confirmed, the PR is proposed with `Closes #105`.
 - `/lead #100`: shows status ("5/8 done, next #106"). It also handles a discovery reported by `/pair` ("the files route streams uploads; NestJS buffers them") by re-gating story #106.
 - `/accept #100`, after the decommission story: a system-level `verify` across the whole epic, a check that the non-goals were respected, the rollback documented, and your sign-off.
+
+## The work log on the issues
+
+Each phase above ended with one comment on its story issue, posted on your yes. This is what the next session reads before starting.
+
+Issue #102, after `/pair`:
+
+```markdown
+### pair · done
+- **Decided:** the error mapper includes `path` in 404 bodies, because NestJS sends it
+  and parity wins (src/errors.ts:18).
+- **Found:** the parity suite was green against NestJS only because it seeded data
+  through the ORM; it now seeds over HTTP (test/parity/seed.ts:7).
+- **Open:** manual check of the public pages with CLIENT_BACKEND=hono.
+```
+
+Issue #105, after `/deliver`. Its verification ran inside it, so both rounds go in this one entry:
+
+```markdown
+### deliver · verify PASS after 1 FAIL
+- **Decided:** followed routes/players.ts (#103); no new abstractions.
+- **Found:** round 1 FAIL: no test proved the 403 for non-staff on POST /api/coaches, and
+  routes/coaches.ts:40 registered the handler before requireCan. Fixed: requireCan is
+  now router middleware (routes/coaches.ts:9). Round 2 PASS.
+- **Open:** not verified: rate limiting, which neither stack has.
+```
+
+Issue #105, after `/accept`:
+
+```markdown
+### accept · accepted
+- **Found:** 3/3 criteria proven by tests; manual check "coach appears in the staff
+  page" confirmed by you.
+- **Open:** for /lead: POST /api/coaches has no rate limit in either stack; propose a
+  story if one is wanted before decommission.
+```

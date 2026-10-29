@@ -81,7 +81,7 @@ Then offer one-line additions to `AGENTS.md` for project-wide decisions (stack, 
 
 When I run `/lead #<epic>` on a planned epic:
 
-1. Read the epic and the state of each story (open or closed, linked PRs, checkboxes).
+1. Read the epic and the state of each story (open or closed, linked PRs, checkboxes, work log comments).
 2. Report what is done, in progress, next and blocked, on one screen.
 3. Handle what the other workflows reported back:
 
