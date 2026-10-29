@@ -42,6 +42,10 @@ Handle issues, pull requests, reviews, branches, releases, projects and CI statu
 - Story issues start as one line plus `Requires`, risk and mode. Acceptance criteria are added later by `story`.
 - Updating execution metadata (checkboxes, status, links) is fine at any time. Changing the meaning of a locked issue (scope, behaviour, criteria) needs the human's explicit approval first.
 
+### Work log
+
+- `pair`, `deliver`, `verify` and `accept` end with one comment on the story issue: decisions, discoveries and outcomes the diff doesn't show. Read the issue's comments before starting any of them. Template, rules and commands: [references/work-log.md](references/work-log.md).
+
 ## Pull requests
 
 - Review the branch, not just the diff: commits, changed files, CI status (`gh pr checks`).

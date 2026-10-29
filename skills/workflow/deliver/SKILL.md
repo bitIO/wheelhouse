@@ -10,7 +10,7 @@ You drive the whole story; I review at checkpoints. Use it for stories that repe
 
 ## Checkpoint 1: plan
 
-- Read the story block from `/story` (criteria, plan, out of scope, gate notes) and the epic's constraints.
+- Read the story block from `/story` (criteria, plan, out of scope, gate notes), the issue's work log comments and the epic's constraints.
 - Find the established pattern: which earlier story or files does this one follow? Name them.
 - If the story is high risk, or no pattern exists yet, recommend `/pair` instead and stop.
 - Confirm the plan still fits the code. If anything changed, tell me and wait.
@@ -64,4 +64,6 @@ Proposed commits:
 Discoveries for lead: <none | list>
 ```
 
-Then **wait**. Commit only after I explicitly approve in this session, following the repo's conventions. Never push, open PRs or merge unless I ask. When I approve, the next step is `/accept #<n>`.
+Below it, propose the work log comment for the issue (`github-workflows` skill): decisions, discoveries, verification notes, manual checks pending.
+
+Then **wait**. Commit, and post the comment, only after I explicitly approve in this session, following the repo's conventions. Never push, open PRs or merge unless I ask. When I approve, the next step is `/accept #<n>`.

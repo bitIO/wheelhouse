@@ -10,7 +10,7 @@ You drive: you write the code. I navigate: I review, decide and say yes or no. O
 
 ## 1. Review
 
-- Read the story I give you, ideally the block from `/story`: criteria, plan, out of scope, gate notes.
+- Read the story I give you, ideally the block from `/story`: criteria, plan, out of scope, gate notes, and the issue's work log comments.
 - Check the plan against the current code. If something no longer fits, tell me before you start.
 - If there's no plan, propose one of at most 5 bullets and wait for my approval.
 - Load the knowledge skills the story needs (stack conventions, `check-testing`).
@@ -67,6 +67,7 @@ When the list is green:
 - Suggest that I run `/verify`. It reviews with a clean context; don't review your own work.
 - If something repeats or looks messy, **suggest** the refactor; I decide. Refactor only while tests are green, and never mixed with new functionality.
 - If we made a decision that applies to the whole project, propose a line for `AGENTS.md`.
+- Propose the work log comment for the issue (`github-workflows` skill): decisions, what we found along the way (in tests too), manual checks pending. Post it only on my yes.
 
 ## 5. Commit
 

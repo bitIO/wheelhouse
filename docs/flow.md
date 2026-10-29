@@ -111,7 +111,8 @@ Things the sequence shows that the flowchart doesn't:
 
 - **The `investigator` subagent** does the code investigation for `/lead`, so the lead's context stays small. In a tool without subagents (Pi), `/lead` investigates inline.
 - **Who starts the verification.** In `/pair` you run `/verify` yourself when the story is done. `/deliver` asks for the independent verification on its own, between its second and third checkpoints.
-- **Writes to the tracker always wait for your yes**: the story block from `/story`, the PR and the epic checklist from `/accept`.
+- **Writes to the tracker always wait for your yes**: the story block from `/story`, the PR and the epic checklist from `/accept`, and the work log comments.
+- **The issue is the work log.** `/pair`, `/deliver`, `/verify` and `/accept` each end with one comment on the story issue: decisions, discoveries (in tests too), the verdict and what's left open. The next session reads them before it starts, so nothing learned stays trapped in a closed chat.
 - **Commits**: `/pair` never commits; it suggests the message and you commit. `/deliver` proposes commits at checkpoint 3 and makes them only on your yes. Nothing pushes or merges unless you ask.
 
 > In the sequence source, `#35;` is Mermaid's escape for `#`: in sequence diagrams an unescaped `#` cuts the rest of the message.
