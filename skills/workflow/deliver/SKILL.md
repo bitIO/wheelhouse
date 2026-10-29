@@ -64,6 +64,6 @@ Proposed commits:
 Discoveries for lead: <none | list>
 ```
 
-Below it, propose the work log comment for the issue (`github-workflows` skill): decisions, discoveries, verification notes, manual checks pending.
+Below it, propose the work log comment for the issue (`github-workflows` skill): decisions, discoveries, every verification round with its findings, manual checks pending.
 
 Then **wait**. Commit, and post the comment, only after I explicitly approve in this session, following the repo's conventions. Never push, open PRs or merge unless I ask. When I approve, the next step is `/accept #<n>`.

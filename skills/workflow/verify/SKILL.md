@@ -58,4 +58,4 @@ Not verified: <what you couldn't check, and why>
 
 FAIL means at least one blocker: an unproven criterion, failing commands, a security or data issue, or a scope violation.
 
-After the report, offer to post it to the issue as a work log comment (`github-workflows` skill): verdict, range, findings, not verified. The reviewer never posts; the session that called it does, on my yes.
+After the report, offer to post it to the issue as a work log comment (`github-workflows` skill): verdict, range, findings, not verified. The reviewer never posts; the session that called it does, on my yes. When `deliver` called it, don't post: the verdicts go in deliver's own comment.

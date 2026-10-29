@@ -9,7 +9,7 @@ One comment when a phase ends, never per step or per commit:
 | Phase | Posted by | Content |
 |---|---|---|
 | `pair` / `deliver` | at the check / checkpoint 3 | decisions, discoveries, test notes, manual checks pending |
-| `verify` | the session that ran it | verdict, range, findings, not verified |
+| `verify` | the session that ran it, unless `deliver` did (then it goes in deliver's entry) | verdict, range, findings, not verified |
 | `accept` | when I sign off or reject | evidence summary, my manual-check answers, gaps, follow-ups |
 
 `story` doesn't add a comment: its block in the issue body is the record. Post only on my yes; the comment is outward-facing.
