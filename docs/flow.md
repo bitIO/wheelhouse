@@ -85,19 +85,22 @@ sequenceDiagram
                 Build->>You: one test → red → green, stop
                 You-->>Build: next
             end
+            Build->>GH: work log comment, on your yes
             You->>Rev: /verify #35;12
+            Rev-->>GH: verdict as a comment, on your yes
         else repeats a pattern
             You->>Build: /deliver #35;12
             Build->>You: checkpoints 1 and 2: plan, test list
             Build->>Rev: independent verification
             Rev-->>Build: findings
             Build->>You: checkpoint 3: result + proposed commits
+            Build->>GH: work log comment with every verify round, on your yes
         end
         Rev-->>You: criteria proven? scope kept? risk checks
         You->>Acc: /accept #35;12
         Acc->>You: evidence per criterion, manual checks
         You-->>Acc: sign off
-        Acc->>GH: PR and epic checklist, on your yes
+        Acc->>GH: PR, epic checklist and work log comment, on your yes
         You->>Lead: /lead #35;epic
         Lead->>You: done · next · blocked · re-plan
     end

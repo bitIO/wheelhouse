@@ -42,6 +42,8 @@ Diagrams of the same flow, as a flowchart and as a sequence, with notes on each 
 | [`/verify`](skills/workflow/verify/SKILL.md) | Independent review with a clean context: criteria proven by tests, scope, `4r-code-review` plus the `check-*` skills the story needs. | Fix anything, or review its own work |
 | [`/accept`](skills/workflow/accept/SKILL.md) | Maps each criterion to evidence, walks the manual checks with you, proposes the PR. At epic level, runs the system review. | Mark a criterion as met without evidence |
 
+The story issue doubles as a **work log**: `/pair`, `/deliver`, `/verify` and `/accept` each end with one comment on it (decisions, what was found along the way, the verdict, what's left open), posted on your yes. The next session reads it before starting, so nothing learned stays in a closed chat. [What it looks like](docs/examples/backend-migration.md#the-work-log-on-the-issues).
+
 `/lead` uses three supporting skills that you can also call directly: [`backlog`](skills/workflow/backlog/SKILL.md), which includes a [migration mode](skills/workflow/backlog/references/migrations.md), [`gate`](skills/workflow/gate/SKILL.md), and [`skill-advisor`](skills/workflow/skill-advisor/SKILL.md).
 
 `skill-advisor` recommends the few third-party skills the work needs, from evidence in the repo (a `@auth0/*` dependency, stories that build screens), and skips areas you already cover. Before installing anything it clones the skill, runs a read-only [scanner](skills/workflow/skill-advisor/scripts/scan.sh) and reads the flagged files:
