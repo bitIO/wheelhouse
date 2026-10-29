@@ -141,7 +141,7 @@ Re-running replaces only what wheelhouse installed, so local edits to those copi
 | Subagents | `investigator`, `reviewer` | `investigator`, `reviewer` (read-only permissions) | none built in: `/verify` asks for a fresh session |
 | Installed into | `~/.claude/{skills,agents}` | `~/.config/opencode/{skills,commands,agents}` | `~/.pi/agent/skills` |
 
-Details and caveats per tool: [docs/compatibility.md](docs/compatibility.md).
+Details and caveats per tool: [docs/compatibility.md](docs/compatibility.md). Claude Code extras, such as a status line segment with the wheelhouse version: [docs/claude-code.md](docs/claude-code.md).
 
 ### Language
 
