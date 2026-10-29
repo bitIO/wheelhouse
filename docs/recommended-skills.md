@@ -22,7 +22,7 @@ Do what `skill-advisor` does: clone it, scan it, read it, then install the copy 
 ```bash
 tmp="$(mktemp -d)" && git clone --depth 1 https://github.com/<owner>/<repo> "$tmp"
 bash skills/workflow/skill-advisor/scripts/scan.sh "$tmp/<path>" "$tmp"
-DISABLE_TELEMETRY=1 npx skills add "$tmp/<path>" -a claude-code -g --copy -y   # or -a opencode / -a pi
+DISABLE_TELEMETRY=1 npx skills add "$tmp/<path>" -a claude-code -g --copy -y   # or -a opencode / -a pi; drop -g for this project only
 ```
 
 Things to check that a scanner can't: is the license compatible with your use? Does the description stay within its domain? Is the `SKILL.md` small enough to load often, with details in `references/`?

@@ -54,9 +54,9 @@ Use the output format below. For 🟡 and 🔴, quote the flagged lines with `fi
 Only after an explicit yes for that skill, and never a 🔴 one.
 
 1. Install the copy you reviewed, not a fresh download:
-   `DISABLE_TELEMETRY=1 npx skills add <clone>/<skill path> -a <agent> -g --copy -y`
+   `DISABLE_TELEMETRY=1 npx skills add <clone>/<skill path> -a <agent> [-g] --copy -y`
    - `<agent>` is the tool you run in: `claude-code`, `opencode` or `pi`.
-   - `-g` installs for my user. Leave it out only if I want it in this project; that writes into the repo.
+   - Install at the same scope as wheelhouse, so a project install doesn't leak into every session. **Project** (no `-g`, writes into the repo) when this skill was loaded from inside the repo (`.claude/`, `.opencode/` or `.pi/`) or the repo's `.claude/settings.json` enables `wheelhouse@wheelhouse`. **User** (`-g`) otherwise. Say which scope and why before installing; I can override it.
    - Without Node, copy the reviewed directory yourself (paths in the review reference).
 2. Compare the installed `SKILL.md` with the reviewed one (`diff`). If they differ, say so and stop.
 3. Delete the temporary clone, and tell me the skill is available from my next session.
