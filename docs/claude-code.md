@@ -4,7 +4,11 @@ Extras that only apply to Claude Code. What every tool supports, and the caveats
 
 ## Show the wheelhouse version in the status line
 
-A [status line](https://code.claude.com/docs/en/statusline) segment that shows which wheelhouse a session is using, e.g. `🛞 v0.3.1`. It looks in this order:
+A [status line](https://code.claude.com/docs/en/statusline) segment that shows which wheelhouse a session is using, e.g. `🛞 v0.3.1`, next to the folder name:
+
+![Claude Code status line ending in 🛞 v0.2.0, the folder and the branch](assets/claude-code-status-sample.png)
+
+It looks in this order:
 
 1. **The project's copy** (`--project`). The installer records the version in `.claude/skills/lead/.wheelhouse`. Copies made before v0.4.0 don't have it, so the segment shows the version of the source they were copied from, which may be newer.
 2. **A global install** (symlinks): the `VERSION` that `get.sh` writes, or `plugin.json` in a git clone.
