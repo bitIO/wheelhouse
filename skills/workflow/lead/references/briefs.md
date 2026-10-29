@@ -14,6 +14,7 @@ Answer with evidence (file:line), no proposals:
 3. What tests exist around <Z>, and what do they actually exercise?
 4. Which env vars, ports, Docker or CI steps reference <Y>?
 5. <Library> <version>: confirm in the official docs whether it supports <capability>. Give the URL.
+6. Which frameworks, libraries and external services does it use? Cite the dependency and config files.
 
 Output: at most 40 lines. Facts first, then "Unknowns", then "Risks noticed".
 Do not modify files. Do not write to any memory store.
@@ -57,5 +58,5 @@ GO_WITH_NOTES. Notes carried into stories:
 ```markdown
 As a <actor>, I want <action>, so that <benefit>.
 
-Epic: #<epic> · Requires: #<n> · Risk: <low|medium|high> · Checks: <security, data, …> · Mode: <pair|deliver>
+Epic: #<epic> · Requires: #<n> · Risk: <low|medium|high> · Checks: <security, data, …> · Mode: <pair|deliver> · Skills: <third-party skills, or none>
 ```

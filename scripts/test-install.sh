@@ -22,7 +22,7 @@ fresh_home() {
 run() { bash "$INSTALL" "$@" >"$WORK/last.log" 2>&1; }
 
 manual="lead story pair deliver accept"
-invocable="backlog gate verify"
+invocable="backlog gate verify skill-advisor"
 # shellcheck disable=SC2034 # read inside check() eval strings
 n_skills=$(find "$REPO/skills" -mindepth 2 -maxdepth 2 -type d | wc -l | tr -d ' ')
 

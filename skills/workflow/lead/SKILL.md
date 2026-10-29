@@ -34,6 +34,7 @@ Use it for:
 - If your tool supports subagents and the `investigator` agent is installed, delegate the investigation with a brief (template in [references/briefs.md](references/briefs.md)). Otherwise investigate yourself and keep notes short.
 - Check how the repo solves this today: boundaries, existing patterns, tests, contracts, deployment, environment variables.
 - Verify library and framework behaviour against current official docs (or a docs MCP such as context7 if available), never from memory.
+- Note the stack: frameworks, libraries and services from the dependency and config files. `skill-advisor` needs them in §4.
 - Output: a short list of facts, each with a `file:line` or URL.
 
 ## 3. Gate
@@ -53,6 +54,7 @@ Apply the `backlog` skill (use its **migration mode** for migrations, upgrades a
 - **Suggested mode**:
   - `pair`: I navigate, you drive in small steps. Use it for the first story that sets a pattern, and for anything high risk.
   - `deliver`: you drive, and I review at checkpoints. Use it when a story repeats a pattern we already established.
+- **Skills**: third-party skills the story needs beyond wheelhouse's own. Apply the `skill-advisor` skill to the whole backlog (stack facts plus what the stories do) and list each story's skills. Don't install anything yet.
 
 Also propose the **delivery strategy**, as expensive decisions for me to take: one branch and PR per story (default), side-by-side or feature-flagged rollout, and how we roll back. Prefer small PRs into the main branch over a long-lived integration branch.
 
@@ -62,11 +64,14 @@ Present it in one message:
 
 - **Epic**: summary, goal, scope, non-goals, expensive decisions, assumptions, gate notes.
 - **Backlog**: the annotated stories.
+- **Skills**: the `skill-advisor` block, with a 🟢, 🟡 or 🔴 rating per candidate.
 
 Wait for my explicit approval. Adjust until I say yes. Then write it where the work lives:
 
 - **GitHub** (default when `gh` works and the repo has a GitHub remote): one epic issue and one issue per story, using the `github-workflows` skill and the templates in [references/briefs.md](references/briefs.md). Story issues hold the one-line story, `Requires`, risk, checks and mode; **no acceptance criteria yet**, because `/story` writes those right before building.
 - **No tracker**: ask before creating `docs/work/<epic-slug>.md` with the same content.
+
+Then go through the recommended skills **one at a time**, as `skill-advisor` describes: install the ones I say yes to, never a 🔴 one. Locking the plan is not a yes to installing.
 
 Then offer one-line additions to `AGENTS.md` for project-wide decisions (stack, rollout rule). End with the next story and the command to run **in a fresh session**, e.g. `/story #12`.
 

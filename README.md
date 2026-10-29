@@ -9,9 +9,10 @@ It works with **Claude Code**, **OpenCode** and **Pi**, from one set of [Agent S
 ## The flow
 
 ```text
-               ┌──────────────────── once per initiative ────────────────────┐
-/lead  ──────► │ interview → investigate → gate → backlog → you lock → issues │
-               └───────────────────────────────┬─────────────────────────────┘
+               ┌─────────────────────────── once per initiative ───────────────────────────┐
+/lead  ──────► │ interview → investigate → gate → backlog → skills → you lock → issues     │
+               │                                            🟢 🟡 🔴  installs on your yes │
+               └───────────────────────────────┬───────────────────────────────────────────┘
                                                │ one story per session
                                                ▼
 /story #12 ──► criteria (Given/When/Then) + story gate + mini plan → you approve
@@ -39,7 +40,17 @@ It works with **Claude Code**, **OpenCode** and **Pi**, from one set of [Agent S
 | [`/verify`](skills/workflow/verify/SKILL.md) | Independent review with a clean context: criteria proven by tests, scope, `4r-code-review` plus the `check-*` skills the story needs. | Fix anything, or review its own work |
 | [`/accept`](skills/workflow/accept/SKILL.md) | Maps each criterion to evidence, walks the manual checks with you, proposes the PR. At epic level, runs the system review. | Mark a criterion as met without evidence |
 
-`/lead` uses two supporting skills that you can also call directly: [`backlog`](skills/workflow/backlog/SKILL.md), which includes a [migration mode](skills/workflow/backlog/references/migrations.md), and [`gate`](skills/workflow/gate/SKILL.md).
+`/lead` uses three supporting skills that you can also call directly: [`backlog`](skills/workflow/backlog/SKILL.md), which includes a [migration mode](skills/workflow/backlog/references/migrations.md), [`gate`](skills/workflow/gate/SKILL.md), and [`skill-advisor`](skills/workflow/skill-advisor/SKILL.md).
+
+`skill-advisor` recommends the few third-party skills the work needs, from evidence in the repo (a `@auth0/*` dependency, stories that build screens), and skips areas you already cover. Before installing anything it clones the skill, runs a read-only [scanner](skills/workflow/skill-advisor/scripts/scan.sh) and reads the flagged files:
+
+| | Rating | What happens |
+|---|---|---|
+| 🟢 | No risk signals | Installed when you say yes |
+| 🟡 | Needs human review (bundled scripts, tool grants, `curl \| sh`, no license, unvetted source…) | You see the exact lines first |
+| 🔴 | Do not install (hidden characters, decode-and-run, escapes its directory…) | Never installed by the agent |
+
+The model can raise the scanner's rating but never lower it, so a skill can't talk its way to 🟢.
 
 ## Principles
 
@@ -56,7 +67,7 @@ It works with **Claude Code**, **OpenCode** and **Pi**, from one set of [Agent S
 ```text
 skills/
   workflow/   lead, story, pair, deliver, accept   ← run only when you invoke them
-              backlog, gate, verify               ← also usable by the workflows themselves
+              backlog, gate, verify, skill-advisor ← also usable by the workflows themselves
   checks/     check-security, check-data, check-perf, check-a11y, check-testing
   knowledge/  4r-code-review, github-workflows, conventions-* (defaults per stack; your repo’s rules win)
 agents/       investigator, reviewer               ← read-only subagents, optional
@@ -89,7 +100,7 @@ Details and caveats per tool: [docs/compatibility.md](docs/compatibility.md).
 
 ## Recommended third-party skills
 
-wheelhouse only ships its own skills. Stack-specific skills (Drizzle, Supabase, Playwright, Turborepo, React…) are better installed from their maintainers: see [docs/recommended-skills.md](docs/recommended-skills.md).
+wheelhouse only ships its own skills. Stack-specific skills (Supabase, Playwright, Turborepo, React…) are better installed from their maintainers. `skill-advisor` picks them from a [curated catalog](skills/workflow/skill-advisor/references/catalog.md); see [docs/recommended-skills.md](docs/recommended-skills.md).
 
 ## Credits
 

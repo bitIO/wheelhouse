@@ -48,6 +48,19 @@ expect_fail conventions-precedence "repo's own rules win" \
   "grep -v 'win over these' skills/knowledge/conventions-git/SKILL.md > x && mv x skills/knowledge/conventions-git/SKILL.md"
 expect_fail builtin-agent-name "collides with a built-in" \
   "sed 's/^name: investigator$/name: explore/' agents/investigator.md > agents/explore.md && rm agents/investigator.md"
+CATALOG=skills/workflow/skill-advisor/references/catalog.md
+expect_fail catalog-duplicate-area "duplicate area" \
+  "printf '| Postgres | \`other-pg\` | acme/skills | skills/pg | \`pg\` in the dependencies |\n' >> $CATALOG"
+expect_fail catalog-duplicate-skill "duplicate skill" \
+  "printf '| Other area | \`turborepo\` | acme/skills | skills/turbo | A \`turbo.json\` file |\n' >> $CATALOG"
+expect_fail catalog-clash "clashes with a wheelhouse skill" \
+  "printf '| Gates | \`gate\` | acme/skills | skills/gate | Always |\n' >> $CATALOG"
+expect_fail catalog-bad-repo "repo must be owner/name" \
+  "printf '| Elixir | \`elixir\` | https://example.com/x | skills/elixir | \`mix.exs\` |\n' >> $CATALOG"
+expect_fail catalog-columns "exactly 5 columns" \
+  "printf '| Elixir | \`elixir\` | acme/skills | skills/elixir |\n' >> $CATALOG"
+expect_fail catalog-path "relative to the repo" \
+  "printf '| Elixir | \`elixir\` | acme/skills | ../elixir | \`mix.exs\` |\n' >> $CATALOG"
 
 if bash "$REPO/scripts/validate.sh" >/dev/null; then passed=$((passed + 1)); else echo "FAIL: clean repo rejected"; failed=$((failed + 1)); fi
 

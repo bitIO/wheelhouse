@@ -55,6 +55,34 @@ unknown_refs() {
   done
 }
 
+# catalog_rows: read the skill-advisor catalog, flag malformed, duplicate or clashing rows.
+catalog_rows() {
+  local line area skill repo path signals extra areas=" " skills=" " rows=0
+  while IFS= read -r line; do
+    case "$line" in "| Area |"* | "|---"* | "| ---"*) continue ;; "| "*) ;; *) continue ;; esac
+    rows=$((rows + 1))
+    IFS='|' read -r _ area skill repo path signals extra <<EOF
+$line
+EOF
+    area="$(trim "$area")"; skill="$(trim "$skill")"; repo="$(trim "$repo")"
+    path="$(trim "$path")"; signals="$(trim "$signals")"; extra="$(trim "$extra")"
+    if [ -z "$signals" ] || [ -n "$extra" ]; then
+      printf 'FAIL catalog: row needs exactly 5 columns: %s\n' "$line"; continue
+    fi
+    printf '%s' "$skill" | grep -Eq '^`[a-z0-9]+(-[a-z0-9]+)*`$' || printf 'FAIL catalog: skill must be a backticked name: %s\n' "$skill"
+    skill="$(printf '%s' "$skill" | tr -d '`')"
+    printf '%s' "$repo" | grep -Eq '^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$' || printf 'FAIL catalog: repo must be owner/name: %s\n' "$repo"
+    case "$path" in /* | *..* | "") printf 'FAIL catalog: path must be relative to the repo: %s\n' "$path" ;; esac
+    case "$areas" in *" $area|"*) printf 'FAIL catalog: duplicate area %s (one skill per area)\n' "$area" ;; esac
+    case "$skills" in *" $skill "*) printf 'FAIL catalog: duplicate skill %s\n' "$skill" ;; esac
+    case " $names " in *" $skill "*) printf 'FAIL catalog: %s clashes with a wheelhouse skill\n' "$skill" ;; esac
+    areas="$areas $area|"
+    skills="$skills$skill "
+  done
+  [ "$rows" -gt 0 ] || printf 'FAIL catalog: no rows found\n'
+}
+trim() { local s="${1#"${1%%[![:space:]]*}"}"; printf '%s' "${s%"${s##*[![:space:]]}"}"; }
+
 names=""
 for f in "$REPO"/skills/*/*/SKILL.md; do
   rel="${f#"$REPO"/}"
@@ -107,8 +135,11 @@ agents=" $(for f in "$REPO"/agents/*.md; do basename "$f" .md; done | tr '\n' ' 
 sources=""
 for p in skills agents README.md docs; do [ -e "$REPO/$p" ] && sources="$sources $REPO/$p"; done
 # shellcheck disable=SC2086 # $sources is a list of repo paths without spaces in their names
-report "$(grep -rhoE '`(check-[a-z0-9-]+|conventions-[a-z0-9-]+|github-workflows|4r-code-review)`' $sources |
+report "$(grep -rhoE '`(check-[a-z0-9-]+|conventions-[a-z0-9-]+|github-workflows|4r-code-review|skill-advisor)`' $sources |
   tr -d '`' | sort -u | unknown_refs)"
+catalog="$REPO/skills/workflow/skill-advisor/references/catalog.md"
+if [ -f "$catalog" ]; then report "$(catalog_rows <"$catalog")"; fi
+
 for a in investigator reviewer; do
   case "$agents" in *" $a "*) ;; *) fail "agents" "workflows reference the '$a' agent but agents/$a.md is missing" ;; esac
 done

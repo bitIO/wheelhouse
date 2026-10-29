@@ -25,10 +25,12 @@ jobs:
           if [ "$RUNNER_OS" = "macOS" ]; then brew install shellcheck; fi
           python3 -m pip install --quiet pyyaml || python3 -m pip install --quiet --break-system-packages pyyaml
       - name: Shellcheck
-        run: shellcheck setup/*.sh scripts/*.sh
+        run: shellcheck setup/*.sh scripts/*.sh skills/*/*/scripts/*.sh
       - name: Validate skills and agents
         run: bash scripts/validate.sh
       - name: Validator negative tests
         run: bash scripts/test-validate.sh
       - name: Installer end-to-end tests
         run: bash scripts/test-install.sh
+      - name: Skill scanner tests
+        run: bash scripts/test-scan.sh
