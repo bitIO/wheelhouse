@@ -118,6 +118,21 @@ Options: `--claude`, `--opencode`, `--pi`, `--all`, `--project <dir>` (install i
 | Clone, global (symlinks) | `git pull` |
 | Clone, `--project` (copies) | `git pull`, then re-run `./setup/install.sh --project <dir>` with the same tools |
 
+For example:
+
+```bash
+# get.sh, global install
+curl -fsSL https://github.com/bitIO/wheelhouse/releases/latest/download/get.sh | bash
+
+# get.sh, only Claude Code, into one project
+curl -fsSL https://github.com/bitIO/wheelhouse/releases/latest/download/get.sh | bash -s -- --claude --project ~/dev/my-app
+
+# Clone, into one project
+cd ~/dev/wheelhouse && git pull && ./setup/install.sh --claude --project ~/dev/my-app
+```
+
+`get.sh` and the plugin install the latest release, so changes on `main` reach them only once they are released.
+
 Re-running replaces only what wheelhouse installed, so local edits to those copies are lost. In a project, commit the updated `.claude/`, `.opencode/` and `.pi/` afterwards, e.g. `chore: update wheelhouse to v0.2.0`.
 
 | | Claude Code | OpenCode | Pi |
