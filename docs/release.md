@@ -45,7 +45,7 @@ curl -fsSL https://github.com/bitIO/wheelhouse/releases/latest/download/get.sh |
 curl -fsSL https://github.com/bitIO/wheelhouse/releases/latest/download/get.sh | WHEELHOUSE_VERSION=v0.1.0 bash
 ```
 
-- **Update**: run the same line again. It replaces the download in place, so the installer's symlinks keep working and pick up the new version.
+- **Update**: run the same line again, with the same arguments. It replaces the download in place, so the installer's symlinks keep working and pick up the new version. Project installs are copies: commit the updated folders in that repo.
 - **Uninstall**: `~/.local/share/wheelhouse/setup/install.sh --uninstall`, then delete `~/.local/share/wheelhouse`.
 - **Read it first** if you don't pipe scripts into your shell (our own `skill-advisor` rates `curl | bash` 🟡):
 

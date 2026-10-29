@@ -109,6 +109,17 @@ A project install writes into `my-app/.claude`, `my-app/.opencode` and `my-app/.
 
 Options: `--claude`, `--opencode`, `--pi`, `--all`, `--project <dir>` (install into one repo, copied rather than linked), `--copy`, `--dry-run`, `--uninstall`, `--force`. Global installs are symlinks, so `git pull` updates them. The installer never overwrites files it didn't create.
 
+### Update
+
+| Installed with | Update |
+|---|---|
+| Claude Code plugin | `/plugin marketplace update wheelhouse`, or turn on auto-update under **Marketplaces** in `/plugin` |
+| `get.sh` | Run the same line again, with the same arguments (`--project …`) |
+| Clone, global (symlinks) | `git pull` |
+| Clone, `--project` (copies) | `git pull`, then re-run `./setup/install.sh --project <dir>` with the same tools |
+
+Re-running replaces only what wheelhouse installed, so local edits to those copies are lost. In a project, commit the updated `.claude/`, `.opencode/` and `.pi/` afterwards, e.g. `chore: update wheelhouse to v0.2.0`.
+
 | | Claude Code | OpenCode | Pi |
 |---|---|---|---|
 | Run a workflow | `/lead …` | `/lead …` (generated command) | `/skill:lead …` |
