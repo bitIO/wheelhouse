@@ -90,7 +90,7 @@ Versioned releases, no git needed ([details, updates and pinning](docs/release.m
 curl -fsSL https://github.com/bitIO/wheelhouse/releases/latest/download/get.sh | bash
 ```
 
-From a clone, to work on wheelhouse or use your local copy:
+From a git clone, for developers who want to change wheelhouse (pull requests are more than welcome):
 
 ```bash
 git clone https://github.com/bitIO/wheelhouse.git
