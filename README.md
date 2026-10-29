@@ -31,6 +31,8 @@ It works with **Claude Code**, **OpenCode** and **Pi**, from one set of [Agent S
 /lead #epic ─► status, next story, re-plan on discoveries      /accept #epic ─► system review
 ```
 
+Diagrams of the same flow, as a flowchart and as a sequence, with notes on each step: [docs/flow.md](docs/flow.md).
+
 | Workflow | What it does | What it never does |
 |---|---|---|
 | [`/lead`](skills/workflow/lead/SKILL.md) | Turns a request into an evidence-backed epic and 5–15 vertical stories, each with risk, checks and a suggested mode. Writes them as issues after you lock them, then tracks progress and re-plans. | Write code, commit, or change a locked issue without you |
