@@ -1,11 +1,20 @@
 {
   "name": "wheelhouse",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Workflow, check and knowledge skills plus two read-only subagents for story-driven development.",
-  "author": { "name": "Francisco Calle" },
+  "author": {
+    "name": "Francisco Calle"
+  },
   "homepage": "https://github.com/bitIO/wheelhouse",
   "repository": "https://github.com/bitIO/wheelhouse",
   "license": "MIT",
-  "skills": ["./skills/workflow/", "./skills/checks/", "./skills/knowledge/"],
-  "agents": ["./plugin/agents/investigator.md", "./plugin/agents/reviewer.md"]
+  "skills": [
+    "./skills/workflow/",
+    "./skills/checks/",
+    "./skills/knowledge/"
+  ],
+  "agents": [
+    "./plugin/agents/investigator.md",
+    "./plugin/agents/reviewer.md"
+  ]
 }
