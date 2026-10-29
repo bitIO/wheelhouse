@@ -6,7 +6,7 @@ wheelhouse keeps one source per skill and agent. `setup/install.sh` places or re
 
 - **Skills**: every skill is symlinked into `~/.claude/skills/<name>` (or `<project>/.claude/skills`).
 - **Manual workflows**: `disable-model-invocation: true` hides `lead`, `story`, `pair`, `deliver` and `accept` from the model. You invoke them with `/lead`, `/story`…
-- **Plugin**: the [Claude Code plugin](release.md#claude-code-plugin) ships the same skills and agents, namespaced as `wheelhouse:<name>`.
+- **Plugin**: the [Claude Code plugin](install.md#claude-code-plugin) ships the same skills and agents, namespaced as `wheelhouse:<name>`.
 - **Agents**: rendered into `~/.claude/agents/<name>.md` with `tools: Read, Grep, Glob, Bash` (`investigator` also gets `WebFetch, WebSearch`). There's no `Edit` or `Write`. `Bash` is still subject to your permission settings, so a determined agent could write through the shell if you allow it.
 
 ## OpenCode
