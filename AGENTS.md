@@ -17,7 +17,7 @@ wheelhouse is a set of Agent Skills plus two subagents, installed into Claude Co
 
 - `name` matches the directory name: lowercase words joined by hyphens, at most 64 characters, unique across categories.
 - `description` is one line, at most 1024 characters, and says **what it does and when to use it**. Quote it if it contains `: ` or ` #`.
-- Only `workflow` skills may set `disable-model-invocation: true`, and they must also contain the guard sentence "Only run this when I invoke it explicitly" (OpenCode 1 ignores the flag).
+- Only `workflow` skills may set `disable-model-invocation: true`, and they must also contain the guard sentence "Only run this when I invoke it explicitly" (OpenCode 1 ignores the flag), plus the language sentence "Talk to me in my language".
 - Keep `SKILL.md` short (about 150 lines at most); move detail to `references/`.
 - Reference other skills by their exact name in backticks (`check-security`). The validator checks they exist.
 - Agent names must not collide with built-in agents (`explore`, `general`, `plan`…).

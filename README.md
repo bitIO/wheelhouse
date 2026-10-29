@@ -128,6 +128,23 @@ Re-running replaces only what wheelhouse installed, so local edits to those copi
 
 Details and caveats per tool: [docs/compatibility.md](docs/compatibility.md).
 
+### Language
+
+Workflows use two languages:
+
+| | Default | Set it in |
+|---|---|---|
+| **Chat**: what they tell you | the one you write in, else English | your personal instructions |
+| **Code**: code, comments, commits, branches, issues | English | the repo's `AGENTS.md`, or your personal instructions |
+
+A bare `/story #1` gives them no words to go by, so set your chat language once in your personal instructions (`~/.claude/CLAUDE.md`, `~/.config/opencode/AGENTS.md` or `~/.pi/agent/AGENTS.md`):
+
+```markdown
+Talk to me in Spanish.
+```
+
+To write code in another language, add a line to the repo's `AGENTS.md` (`Code, comments, commits and issues in Spanish.`), or to your personal instructions to cover every repo. The repo's rule wins, so a team keeps one language whatever each person prefers. Commit types (`feat:`, `fix:`…) don't change.
+
 ## Example
 
 [Migrating a NestJS backend to Hono, end to end](docs/examples/backend-migration.md).

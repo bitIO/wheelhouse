@@ -106,6 +106,7 @@ for f in "$REPO"/skills/*/*/SKILL.md; do
   if [ "$category" = "workflow" ] && [ "$(fm_get "$f" disable-model-invocation)" = "true" ]; then
     # OpenCode ignores disable-model-invocation, so manual workflows must guard themselves.
     grep -q 'Only run this when I invoke it explicitly' "$f" || fail "$rel" "manual-only workflow is missing the explicit-invocation guard"
+    grep -q 'Talk to me in my language' "$f" || fail "$rel" "manual-only workflow is missing the language rule"
   fi
   case "$name" in
     conventions-*) grep -q 'win over these' "$f" || fail "$rel" "conventions skill must state that the repo's own rules win over these" ;;

@@ -35,6 +35,8 @@ expect_fail broken-link "broken link" \
   "printf '\nSee [x](references/nope.md).\n' >> skills/workflow/gate/SKILL.md"
 expect_fail missing-guard "explicit-invocation guard" \
   "grep -v 'Only run this when I invoke it explicitly' skills/workflow/pair/SKILL.md > x && mv x skills/workflow/pair/SKILL.md"
+expect_fail missing-language "missing the language rule" \
+  "sed 's/ Talk to me in my language.*//' skills/workflow/story/SKILL.md > x && mv x skills/workflow/story/SKILL.md"
 expect_fail manual-knowledge "only workflow skills" \
   "awk '{ print } /^description:/ { print \"disable-model-invocation: true\" }' skills/knowledge/conventions-git/SKILL.md > x && mv x skills/knowledge/conventions-git/SKILL.md"
 expect_fail unquoted-colon "needs quoting" \
