@@ -1,6 +1,6 @@
 # Installing a release, and cutting one
 
-wheelhouse ships versioned releases two ways: as a **Claude Code plugin** and as a **one-line installer** that covers Claude Code, OpenCode and Pi. Both come from the same tag. Cloning the repo (see the [README](../README.md#install)) is still the way to work on wheelhouse itself.
+wheelhouse ships versioned releases two ways: as a **Claude Code plugin** and as a **one-line installer** that covers Claude Code, OpenCode and Pi. Both come from the same release. Cloning the repo (see the [README](../README.md#install)) is still the way to work on wheelhouse itself.
 
 | | Claude Code plugin | One-line installer | Git clone |
 |---|---|---|---|
@@ -66,21 +66,17 @@ A formula installs into Homebrew's prefix and must not write into `~/.claude` or
 
 ## Cutting a release (maintainers)
 
-The version lives in one place: `version` in [`.claude-plugin/plugin.json`](../.claude-plugin/plugin.json).
+The version lives in `version` in [`.claude-plugin/plugin.json`](../.claude-plugin/plugin.json), and [release-please](https://github.com/googleapis/release-please-action) maintains it. Nobody edits it by hand.
 
-1. Bump `version` (semver: a new skill is minor, a fix is patch).
-2. If you changed anything in `agents/`, run `bash scripts/build-plugin.sh` (see below).
-3. Run the checks from [AGENTS.md](../AGENTS.md#before-committing), then commit `chore: release vX.Y.Z`.
-4. Tag and push both:
+1. **Every change goes through a pull request.** `main` is protected: no direct pushes, CI must pass, squash merge only. The PR title is a conventional commit (`feat: …`, `fix: …`) because it becomes the commit on `main` and the changelog entry.
+2. **Each merge updates one release PR** (`chore(main): release X.Y.Z`). It holds only the new `version` and the new `CHANGELOG.md` entries; the code is already on `main`. The bump covers everything since the last release, once: any `feat` makes a minor, only `fix` a patch. Below 1.0 a breaking change (`feat!:`) is a minor too; going to 1.0 is a decision, made with a `Release-As: 1.0.0` footer.
+3. **Merge the release PR when you want to release.** The [release workflow](../.github/workflows/release.yml) tags `vX.Y.Z`, publishes the GitHub release with the changelog entry and attaches `get.sh`.
 
-   ```bash
-   git tag vX.Y.Z
-   git push origin main vX.Y.Z
-   ```
+The release PR is opened with `GITHUB_TOKEN`, so CI doesn't run on it. It only changes the version and the changelog, so admins merge it with the bypass (*Merge without waiting for requirements*). Everything else waits for CI.
 
-The [release workflow](../.github/workflows/release.yml) checks that the tag matches `plugin.json` and that the plugin agents are up to date, then publishes a GitHub release with generated notes and `get.sh` attached.
+If you changed anything in `agents/`, run `bash scripts/build-plugin.sh` in that PR (see below); CI fails otherwise.
 
-Plugin users install from `main`, not from the tag. Claude Code only updates them when `version` changes, so commits pushed without a bump don't reach them. That also means a bump on `main` is a release for them, so push it with its tag.
+Plugin users install from `main`, not from the tag. Claude Code only updates them when `version` changes, so the release PR's merge is the release for them too.
 
 ### How the plugin is put together
 

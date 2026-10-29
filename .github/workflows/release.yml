@@ -1,27 +1,26 @@
 name: release
 
+# Every push to main updates the release PR (version in plugin.json plus CHANGELOG.md).
+# Merging that PR tags the version and publishes the GitHub release.
 on:
   push:
-    tags: ['v*']
+    branches: [main]
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
+      - uses: googleapis/release-please-action@v5
+        id: release
+      # Tags made with GITHUB_TOKEN don't trigger other workflows, so attach get.sh here.
       - uses: actions/checkout@v4
-      - name: Tag matches the plugin version
-        run: |
-          version="v$(python3 -c 'import json; print(json.load(open(".claude-plugin/plugin.json"))["version"])')"
-          if [ "$version" != "$GITHUB_REF_NAME" ]; then
-            echo "Tag $GITHUB_REF_NAME does not match .claude-plugin/plugin.json ($version)" >&2
-            exit 1
-          fi
-      - name: Plugin agents are up to date
-        run: bash scripts/build-plugin.sh --check
-      - name: Publish the release with get.sh attached
-        run: gh release create "$GITHUB_REF_NAME" setup/get.sh --verify-tag --generate-notes
+        if: ${{ steps.release.outputs.release_created }}
+      - name: Attach get.sh to the release
+        if: ${{ steps.release.outputs.release_created }}
+        run: gh release upload "${{ steps.release.outputs.tag_name }}" setup/get.sh
         env:
           GH_TOKEN: ${{ github.token }}
