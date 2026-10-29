@@ -80,7 +80,7 @@ Why mostly skills and only two agents? See [docs/skills-vs-agents.md](docs/skill
 
 ## Install
 
-Versioned releases, no git needed ([details, updates and pinning](docs/release.md)):
+Versioned releases, no git needed ([details, updates and pinning](docs/install.md)):
 
 ```bash
 # Claude Code, inside a session
