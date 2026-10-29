@@ -84,7 +84,16 @@ Why mostly skills and only two agents? See [docs/skills-vs-agents.md](docs/skill
 git clone https://github.com/bitIO/wheelhouse.git
 cd wheelhouse
 ./setup/install.sh            # auto-detects claude, opencode and pi on your PATH
+
+# Other examples for installing in a project (nothing goes into your home directory)
+./setup/install.sh --project ~/dev/my-app                    # copies; re-run to update
+./setup/install.sh --project ~/dev/my-app --link             # symlinks to this clone; edits show up live
+./setup/install.sh --claude --project ~/dev/my-app           # only Claude Code
+./setup/install.sh --project ~/dev/my-app --dry-run          # show what would change
+./setup/install.sh --project ~/dev/my-app --uninstall        # remove it again
 ```
+
+A project install writes into `my-app/.claude`, `my-app/.opencode` and `my-app/.pi`. Commit the copies to share them with your team, or add those folders to `.gitignore` (always do this with `--link`, since the links point into your clone).
 
 Options: `--claude`, `--opencode`, `--pi`, `--all`, `--project <dir>` (install into one repo, copied rather than linked), `--copy`, `--dry-run`, `--uninstall`, `--force`. Global installs are symlinks, so `git pull` updates them. The installer never overwrites files it didn't create.
 
