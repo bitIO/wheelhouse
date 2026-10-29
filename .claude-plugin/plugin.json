@@ -1,6 +1,6 @@
 {
   "name": "wheelhouse",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Workflow, check and knowledge skills plus two read-only subagents for story-driven development.",
   "author": { "name": "Francisco Calle" },
   "homepage": "https://github.com/bitIO/wheelhouse",
