@@ -1,0 +1,27 @@
+name: release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tag matches the plugin version
+        run: |
+          version="v$(python3 -c 'import json; print(json.load(open(".claude-plugin/plugin.json"))["version"])')"
+          if [ "$version" != "$GITHUB_REF_NAME" ]; then
+            echo "Tag $GITHUB_REF_NAME does not match .claude-plugin/plugin.json ($version)" >&2
+            exit 1
+          fi
+      - name: Plugin agents are up to date
+        run: bash scripts/build-plugin.sh --check
+      - name: Publish the release with get.sh attached
+        run: gh release create "$GITHUB_REF_NAME" setup/get.sh --verify-tag --generate-notes
+        env:
+          GH_TOKEN: ${{ github.token }}

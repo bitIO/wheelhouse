@@ -34,3 +34,5 @@ jobs:
         run: bash scripts/test-install.sh
       - name: Skill scanner tests
         run: bash scripts/test-scan.sh
+      - name: Plugin agents are up to date
+        run: bash scripts/build-plugin.sh --check

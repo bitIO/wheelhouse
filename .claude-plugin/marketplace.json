@@ -1,0 +1,12 @@
+{
+  "name": "wheelhouse",
+  "description": "wheelhouse skills and agents for Claude Code",
+  "owner": { "name": "Francisco Calle" },
+  "plugins": [
+    {
+      "name": "wheelhouse",
+      "source": "./",
+      "description": "Workflow, check and knowledge skills plus two read-only subagents for story-driven development."
+    }
+  ]
+}

@@ -80,6 +80,18 @@ Why mostly skills and only two agents? See [docs/skills-vs-agents.md](docs/skill
 
 ## Install
 
+Versioned releases, no git needed ([details, updates and pinning](docs/release.md)):
+
+```bash
+# Claude Code, inside a session
+/plugin install wheelhouse --marketplace bitIO/wheelhouse
+
+# Claude Code, OpenCode and Pi
+curl -fsSL https://github.com/bitIO/wheelhouse/releases/latest/download/get.sh | bash
+```
+
+From a clone, to work on wheelhouse or use your local copy:
+
 ```bash
 git clone https://github.com/bitIO/wheelhouse.git
 cd wheelhouse

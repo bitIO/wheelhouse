@@ -112,7 +112,28 @@ fresh_home spaced
 bash "$SPACED/setup/install.sh" --claude >"$WORK/last.log" 2>&1
 check "repo path with spaces installs" '[ "$(readlink "$HOME/.claude/skills/lead")" = "$SPACED/skills/workflow/lead" ]'
 
-# 8. Argument errors.
+# 8. get.sh downloads a release tarball into one stable path and upgrades in place.
+release() {
+  mkdir -p "$WORK/remote/archive/refs/tags" "$WORK/src-$1"
+  cp -R "$REPO" "$WORK/src-$1/wheelhouse-${1#v}"
+  tar -czf "$WORK/remote/archive/refs/tags/$1.tar.gz" -C "$WORK/src-$1" "wheelhouse-${1#v}"
+}
+get() { WHEELHOUSE_URL="file://$WORK/remote" WHEELHOUSE_VERSION="$1" bash "$REPO/setup/get.sh" --claude >"$WORK/last.log" 2>&1; }
+fresh_home get
+release v0.1.0
+release v0.2.0
+get v0.1.0
+check "get.sh installs a release" '[ $? -eq 0 ] && [ "$(cat "$HOME/.local/share/wheelhouse/VERSION")" = v0.1.0 ]'
+check "get.sh links skills to the download" '[ "$(readlink "$HOME/.claude/skills/lead")" = "$HOME/.local/share/wheelhouse/skills/workflow/lead" ]'
+get v0.2.0
+check "get.sh upgrades in place" '[ "$(cat "$HOME/.local/share/wheelhouse/VERSION")" = v0.2.0 ] && ! grep -q "skip:" "$WORK/last.log"'
+rm -rf "$HOME/.local/share/wheelhouse" && mkdir -p "$HOME/.local/share/wheelhouse/mine"
+get v0.2.0
+check "get.sh refuses a folder it did not create" '[ $? -ne 0 ] && [ -d "$HOME/.local/share/wheelhouse/mine" ]'
+WHEELHOUSE_URL="file://$WORK/remote" WHEELHOUSE_VERSION=latest bash "$REPO/setup/get.sh" >/dev/null 2>&1
+check "get.sh rejects a non-version tag" '[ $? -ne 0 ]'
+
+# 9. Argument errors.
 bash "$INSTALL" --nope >/dev/null 2>&1
 check "unknown option exits 2" '[ $? -eq 2 ]'
 bash "$INSTALL" --project "$WORK/missing" --all >/dev/null 2>&1
