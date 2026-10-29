@@ -66,7 +66,6 @@ The complete script behind the screenshot: model, effort, session and daily cost
 input=$(cat)
 
 today=$(date +%Y-%m-%d)
-transcript_path=""
 sentinel=/tmp/.claude_dc_sentinel
 if [[ ! -f "$sentinel" ]] || [[ $(date -r "$sentinel" +%Y-%m-%d 2>/dev/null) != "$today" ]]; then
   touch -d "$today 00:00:00" "$sentinel" 2>/dev/null || touch "$sentinel"
