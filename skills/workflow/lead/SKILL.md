@@ -51,6 +51,7 @@ Apply the `backlog` skill (use its **migration mode** for migrations, upgrades a
 
 - `Requires: #N` when it makes no sense without another story.
 - **Risk** `low | medium | high`, plus the `check-*` skills that verification will need (security, data, perf, a11y, testing).
+- **Areas**: what the story touches (`backend`, `frontend`, `data`, `infra`, `ci`, `delivery`, `docs`, or the repo's own labels). They become its labels.
 - **Suggested mode**:
   - `pair`: I navigate, you drive in small steps. Use it for the first story that sets a pattern, and for anything high risk.
   - `deliver`: you drive, and I review at checkpoints. Use it when a story repeats a pattern we already established.
@@ -62,13 +63,14 @@ Also propose the **delivery strategy**, as expensive decisions for me to take: o
 
 Present it in one message:
 
-- **Epic**: summary, goal, scope, non-goals, expensive decisions, assumptions, gate notes.
+- **Epic**: `🎯 <outcome>` title, summary, goal, scope, non-goals, expensive decisions, assumptions, gate notes.
+- **Labels**: type and areas per issue, and the labels the repo doesn't have yet. Approving the lock approves creating them.
 - **Backlog**: the annotated stories.
 - **Skills**: the `skill-advisor` block, with a 🟢, 🟡 or 🔴 rating per candidate.
 
 Wait for my explicit approval. Adjust until I say yes. Then write it where the work lives:
 
-- **GitHub** (default when `gh` works and the repo has a GitHub remote): one epic issue and one issue per story, using the `github-workflows` skill and the templates in [references/briefs.md](references/briefs.md). Story issues hold the one-line story, `Requires`, risk, checks and mode; **no acceptance criteria yet**, because `/story` writes those right before building.
+- **GitHub** (default when `gh` works and the repo has a GitHub remote): one epic issue and one issue per story, using the `github-workflows` skill and the templates in [references/briefs.md](references/briefs.md). Every issue gets its type and area labels. Story issues hold the one-line story, `Requires`, risk, checks and mode; **no acceptance criteria yet**, because `/story` writes those right before building.
 - **No tracker**: ask before creating `docs/work/<epic-slug>.md` with the same content.
 
 Then go through the recommended skills **one at a time**, as `skill-advisor` describes: install the ones I say yes to, never a 🔴 one. Locking the plan is not a yes to installing.
@@ -86,7 +88,7 @@ When I run `/lead #<epic>` on a planned epic:
 | Discovery | What you do |
 |---|---|
 | Local implementation detail | Nothing; it belongs to the story. |
-| New work | Propose a new story in backlog format; add it after I approve. |
+| New work | Propose a new story in backlog format, with its areas; add it with its labels after I approve. |
 | Architecture problem | Re-run `gate` on the affected stories before anyone continues. |
 | Product decision | Ask me. |
 | Contract change (scope, behaviour, criteria) | Propose the new wording; I re-lock; you update the issue. |

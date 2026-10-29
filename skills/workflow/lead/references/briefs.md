@@ -22,6 +22,8 @@ Do not modify files. Do not write to any memory store.
 
 ## Epic issue
 
+Title: `🎯 <outcome>`. Labels: `epic` plus every area its stories touch.
+
 ```markdown
 ## Summary
 <two lines: what and why>
@@ -49,11 +51,13 @@ GO_WITH_NOTES. Notes carried into stories:
 <branch/PR strategy, rollout, rollback>
 
 ## Stories
-- [ ] #12 <one-line story> (risk: low · mode: pair)
-- [ ] #13 <one-line story> (risk: high · mode: pair · checks: security) Requires: #12
+- [ ] #12 <one-line story> (risk: low · mode: pair · areas: backend, frontend)
+- [ ] #13 <one-line story> (risk: high · mode: pair · checks: security · areas: backend, data) Requires: #12
 ```
 
 ## Story issue (written by `lead`; `story` adds the rest)
+
+Title: the action, without the actor. Labels: `story` plus its areas.
 
 ```markdown
 As a <actor>, I want <action>, so that <benefit>.

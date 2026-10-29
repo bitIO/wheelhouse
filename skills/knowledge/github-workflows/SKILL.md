@@ -25,12 +25,12 @@ Handle issues, pull requests, reviews, branches, releases, projects and CI statu
 
 - Search before creating: `gh search issues --repo owner/repo "<query>"`.
 - Write bodies to a temp file and pass `--body-file`, so Markdown, backticks and checklists survive the shell.
-- Use the repo's labels and issue types when they exist; don't invent new labels without asking.
+- Label every issue you create: one type (`epic`, `story`, `task`, `bug`) and one or more areas (`backend`, `frontend`, `data`, `infra`, `ci`, `delivery`, `docs`). The repo's own labels and issue types win; create only the missing ones, once writing to the tracker is approved. Set, colors and commands: [references/labels.md](references/labels.md).
 - Close with a reason: `gh issue close <n> --reason completed|not_planned`.
 
 ### Epics and stories (used by `lead`)
 
-- One epic issue, one issue per story. Create the stories first, then the epic, so the epic body can list them:
+- One epic issue, titled `🎯 <outcome>`, and one issue per story. Create the stories first, then the epic, so the epic body can list them:
 
   ```markdown
   ## Stories
