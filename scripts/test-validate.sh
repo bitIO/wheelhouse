@@ -44,12 +44,12 @@ expect_fail unquoted-colon "needs quoting" \
 expect_fail unknown-skill-ref "unknown skill" \
   "printf '\nLoad \`check-nonexistent\`.\n' >> skills/workflow/verify/SKILL.md"
 expect_fail agent-access "access must be read-only" \
-  "sed 's/^access: read-only$/access: full/' agents/reviewer.md > x && mv x agents/reviewer.md"
-expect_fail missing-agent "reviewer" "rm agents/reviewer.md"
+  "sed 's/^access: read-only$/access: full/' subagents/reviewer.md > x && mv x subagents/reviewer.md"
+expect_fail missing-agent "reviewer" "rm subagents/reviewer.md"
 expect_fail conventions-precedence "repo's own rules win" \
   "grep -v 'win over these' skills/knowledge/conventions-git/SKILL.md > x && mv x skills/knowledge/conventions-git/SKILL.md"
 expect_fail builtin-agent-name "collides with a built-in" \
-  "sed 's/^name: investigator$/name: explore/' agents/investigator.md > agents/explore.md && rm agents/investigator.md"
+  "sed 's/^name: investigator$/name: explore/' subagents/investigator.md > subagents/explore.md && rm subagents/investigator.md"
 CATALOG=skills/workflow/skill-advisor/references/catalog.md
 expect_fail catalog-duplicate-area "duplicate area" \
   "printf '| Postgres | \`other-pg\` | acme/skills | skills/pg | \`pg\` in the dependencies |\n' >> $CATALOG"

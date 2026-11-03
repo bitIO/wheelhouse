@@ -10,7 +10,7 @@ The version lives in `version` in [`.claude-plugin/plugin.json`](../.claude-plug
 
 The release PR is opened with `GITHUB_TOKEN`, so CI doesn't run on it. It only changes the version and the changelog, so admins merge it with the bypass (*Merge without waiting for requirements*). Everything else waits for CI.
 
-If you changed anything in `agents/`, run `bash scripts/build-plugin.sh` in that PR (see below); CI fails otherwise.
+If you changed anything in `subagents/`, run `bash scripts/build-plugin.sh` in that PR (see below); CI fails otherwise.
 
 Plugin users install from `main`, not from the tag. Claude Code only updates them when `version` changes, so the release PR's merge is the release for them too.
 
@@ -19,5 +19,5 @@ Plugin users install from `main`, not from the tag. Claude Code only updates the
 The repo root is both the marketplace ([`.claude-plugin/marketplace.json`](../.claude-plugin/marketplace.json), plugin `source: "./"`) and the plugin.
 
 - **Skills**: `plugin.json` points at `skills/workflow/`, `skills/checks/` and `skills/knowledge/`, because Claude Code expects `<dir>/<name>/SKILL.md` and ours are grouped by category.
-- **Agents**: `agents/*.md` are tool-neutral (`access: read-only`), so Claude Code would load them with every tool. `scripts/build-plugin.sh` renders them with the installer into `plugin/agents/`, which carry `tools: Read, Grep, Glob, Bash`, and `plugin.json` lists those. CI runs `build-plugin.sh --check`, which fails when they are stale or a new agent isn't listed.
+- **Agents**: `subagents/*.md` are tool-neutral (`access: read-only`), so Claude Code would load them with every tool. `scripts/build-plugin.sh` renders them with the installer into `plugin/agents/`, which carry `tools: Read, Grep, Glob, Bash`, and `plugin.json` lists those. CI runs `build-plugin.sh --check`, which fails when they are stale or a new agent isn't listed.
 - **Check locally**: `claude plugin validate .` (the missing-icon warning only matters for Anthropic's directory), and `claude --plugin-dir .` to try it in a session. `claude plugin details` reports `Agents (0)` for manifest-listed agents, but a session does load them.

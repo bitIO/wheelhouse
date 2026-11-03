@@ -116,7 +116,7 @@ for f in "$REPO"/skills/*/*/SKILL.md; do
   fi
 done
 
-for f in "$REPO"/agents/*.md; do
+for f in "$REPO"/subagents/*.md; do
   rel="${f#"$REPO"/}"
   check_frontmatter "$f" "$rel" || continue
   name="$(fm_get "$f" name)"
@@ -132,7 +132,7 @@ for f in "$REPO"/agents/*.md; do
 done
 
 # Skills and agents referenced by name must exist.
-agents=" $(for f in "$REPO"/agents/*.md; do basename "$f" .md; done | tr '\n' ' ') "
+agents=" $(for f in "$REPO"/subagents/*.md; do basename "$f" .md; done | tr '\n' ' ') "
 sources=""
 for p in skills agents README.md docs; do [ -e "$REPO/$p" ] && sources="$sources $REPO/$p"; done
 # shellcheck disable=SC2086 # $sources is a list of repo paths without spaces in their names
@@ -142,14 +142,14 @@ catalog="$REPO/skills/workflow/skill-advisor/references/catalog.md"
 if [ -f "$catalog" ]; then report "$(catalog_rows <"$catalog")"; fi
 
 for a in investigator reviewer; do
-  case "$agents" in *" $a "*) ;; *) fail "agents" "workflows reference the '$a' agent but agents/$a.md is missing" ;; esac
+  case "$agents" in *" $a "*) ;; *) fail "agents" "workflows reference the '$a' agent but subagents/$a.md is missing" ;; esac
 done
 
 if [ "$errors" -gt 0 ]; then
   printf '\n%d problem(s) found.\n' "$errors"
   exit 1
 fi
-agent_count=$(find "$REPO/agents" -maxdepth 1 -name '*.md' | wc -l | tr -d ' ')
+agent_count=$(find "$REPO/subagents" -maxdepth 1 -name '*.md' | wc -l | tr -d ' ')
 # shellcheck disable=SC2086 # split the space-separated name list on purpose
 set -- $names
 printf 'OK: %d skills, %d agents\n' "$#" "$agent_count"

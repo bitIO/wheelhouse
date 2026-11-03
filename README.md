@@ -74,7 +74,7 @@ skills/
               backlog, gate, verify, skill-advisor ← also usable by the workflows themselves
   checks/     check-security, check-data, check-perf, check-a11y, check-testing
   knowledge/  4r-code-review, github-workflows, conventions-* (defaults per stack; your repo’s rules win)
-agents/       investigator, reviewer               ← read-only subagents, optional
+subagents/    investigator, reviewer               ← read-only subagents, optional
 setup/        install.sh                           ← one source, rendered per tool
 ```
 
