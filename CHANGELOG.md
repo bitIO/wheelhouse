@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.1](https://github.com/bitIO/wheelhouse/compare/v0.5.0...v0.5.1) (2026-11-04)
+
+
+### Bug Fixes
+
+* move neutral agent definitions to subagents/ to silence the plugin startup warning ([#12](https://github.com/bitIO/wheelhouse/issues/12)) ([3d3ae92](https://github.com/bitIO/wheelhouse/commit/3d3ae9289428f401c6c6c28a10c21676264252c7))
+
 ## [0.5.0](https://github.com/bitIO/wheelhouse/compare/v0.4.0...v0.5.0) (2026-10-29)
 
 
