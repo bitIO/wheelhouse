@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Render the Claude Code agents the plugin ships (plugin/agents/) from agents/*.md.
+# Render the Claude Code agents the plugin ships (plugin/agents/) from subagents/*.md.
 # With --check, fail instead if they are stale or missing from .claude-plugin/plugin.json.
 set -euo pipefail
 
@@ -24,9 +24,9 @@ if ! diff -r "$rendered" "$REPO/plugin/agents"; then
   echo "plugin/agents is stale: run scripts/build-plugin.sh" >&2
   status=1
 fi
-for f in "$REPO"/agents/*.md; do
+for f in "$REPO"/subagents/*.md; do
   if ! grep -q "\"./plugin/agents/$(basename "$f")\"" "$REPO/.claude-plugin/plugin.json"; then
-    echo "agents/$(basename "$f") is not listed in .claude-plugin/plugin.json" >&2
+    echo "subagents/$(basename "$f") is not listed in .claude-plugin/plugin.json" >&2
     status=1
   fi
 done

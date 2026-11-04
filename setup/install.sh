@@ -188,7 +188,7 @@ remove_ours() {
 # --- inventory ---------------------------------------------------------------------
 
 skill_dirs() { find "$REPO/skills" -mindepth 2 -maxdepth 2 -type d | sort; }
-agent_files() { find "$REPO/agents" -mindepth 1 -maxdepth 1 -name '*.md' | sort; }
+agent_files() { find "$REPO/subagents" -mindepth 1 -maxdepth 1 -name '*.md' | sort; }
 
 # --- renderers ---------------------------------------------------------------------
 
@@ -199,7 +199,7 @@ render_claude_agent() {
   tools="Read, Grep, Glob, Bash"
   if [ "$(fm_get "$src" web)" = "true" ]; then tools="$tools, WebFetch, WebSearch"; fi
   printf -- '---\nname: %s\ndescription: %s\ntools: %s\n---\n' "$name" "$(yaml_quote "$desc")" "$tools"
-  printf '<!-- %s from agents/%s.md; edit the source and re-run setup/install.sh -->\n' "$MARK" "$name"
+  printf '<!-- %s from subagents/%s.md; edit the source and re-run setup/install.sh -->\n' "$MARK" "$name"
   fm_body "$src"
 }
 
@@ -226,7 +226,7 @@ permission:
     "git merge-base*": allow
     "git rev-parse*": allow
 ---
-<!-- $MARK from agents/$name.md; edit the source and re-run setup/install.sh -->
+<!-- $MARK from subagents/$name.md; edit the source and re-run setup/install.sh -->
 EOF
   fm_body "$src"
 }
