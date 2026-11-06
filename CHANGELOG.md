@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.6.0](https://github.com/bitIO/wheelhouse/compare/v0.5.1...v0.6.0) (2026-11-06)
+
+
+### Features
+
+* mark commit points with 💾 and default to the human committing in pair and deliver ([#14](https://github.com/bitIO/wheelhouse/issues/14)) ([e87e29e](https://github.com/bitIO/wheelhouse/commit/e87e29eebb7e1aa8ba5d2be84524bd9a13d27f2a))
+* update the user's memory after /accept, set up once from /lead ([#16](https://github.com/bitIO/wheelhouse/issues/16)) ([aeb639f](https://github.com/bitIO/wheelhouse/commit/aeb639f248d8ac6b65e547eee65d48112d1db8e4))
+
 ## [0.5.1](https://github.com/bitIO/wheelhouse/compare/v0.5.0...v0.5.1) (2026-11-04)
 
 
