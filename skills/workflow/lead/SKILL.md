@@ -75,7 +75,7 @@ Wait for my explicit approval. Adjust until I say yes. Then write it where the w
 
 Then go through the recommended skills **one at a time**, as `skill-advisor` describes: install the ones I say yes to, never a 🔴 one. Locking the plan is not a yes to installing.
 
-Then offer one-line additions to `AGENTS.md` for project-wide decisions (stack, rollout rule). End with the next story and the command to run **in a fresh session**, e.g. `/story #12`.
+Then offer one-line additions to `AGENTS.md` for project-wide decisions (stack, rollout rule). If neither `AGENTS.md` nor my personal instructions have a `Memory after /accept:` line, offer one for my personal instructions (memory is personal, not the team's): `engram` if its tools are available, else your tool's own memory, else `off`. Name the file for this tool (`~/.claude/CLAUDE.md`, `~/.config/opencode/AGENTS.md` or `~/.pi/agent/AGENTS.md`) and write it only on my yes. End with the next story and the command to run **in a fresh session**, e.g. `/story #12`.
 
 ## 6. Track and re-plan
 
