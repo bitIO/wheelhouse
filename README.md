@@ -44,6 +44,12 @@ Diagrams of the same flow, as a flowchart and as a sequence, with notes on each 
 
 The story issue doubles as a **work log**: `/pair`, `/deliver`, `/verify` and `/accept` each end with one comment on it (decisions, what was found along the way, the verdict, what's left open), posted on your yes. The next session reads it before starting, so nothing learned stays in a closed chat. [What it looks like](docs/examples/backend-migration.md#the-work-log-on-the-issues).
 
+After `/accept`, the agent updates your memory with what outlives the story (decisions, non-obvious discoveries), with one 🧠 line you can say no to. Set it once in your personal instructions and it doesn't ask again; `/lead` offers the line if it's missing. Use `engram`, another store, `ask` or `off`. A repo's `AGENTS.md` can only turn it off:
+
+```markdown
+Memory after /accept: engram
+```
+
 Commit points are easy to spot: `/pair` and `/deliver` mark each one with 💾 and a ready-to-copy conventional commit message, with a body only when the why isn't obvious and a `Refs #<n>` footer. You make the commits by default; the agent commits only if you explicitly ask it to, for one commit or for the rest of the session.
 
 `/lead` uses three supporting skills that you can also call directly: [`backlog`](skills/workflow/backlog/SKILL.md), which includes a [migration mode](skills/workflow/backlog/references/migrations.md), [`gate`](skills/workflow/gate/SKILL.md), and [`skill-advisor`](skills/workflow/skill-advisor/SKILL.md).
