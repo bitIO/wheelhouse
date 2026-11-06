@@ -1,6 +1,6 @@
 ---
 name: deliver
-description: Delegated delivery of an already refined story. Same test-first discipline as pair, but the AI runs the whole approved test list on its own, gets an independent verification, and stops at three checkpoints (plan, test list, result). Commits only after explicit approval.
+description: Delegated delivery of an already refined story. Same test-first discipline as pair, but the AI runs the whole approved test list on its own, gets an independent verification, and stops at three checkpoints (plan, test list, result). Proposes commits; the human commits unless they explicitly delegate it.
 disable-model-invocation: true
 ---
 
@@ -14,6 +14,7 @@ You drive the whole story; I review at checkpoints. Use it for stories that repe
 - Find the established pattern: which earlier story or files does this one follow? Name them.
 - If the story is high risk, or no pattern exists yet, recommend `/pair` instead and stop.
 - Confirm the plan still fits the code. If anything changed, tell me and wait.
+- Tell me once, before you start: I make the commits by default; you commit only if I explicitly ask you to, for one commit or for the rest of the session.
 
 ## Checkpoint 2: test list
 
@@ -58,12 +59,25 @@ Tests: <list of test names> (all green) · Manual checks pending: <…>
 Changes: <files changed, +/− lines>
 Decided: <judgment calls, if any>
 Verification: <PASS | PASS_WITH_NOTES>, <notes>
-Proposed commits:
-1. feat(<scope>): …
-2. refactor(<scope>): … (if any; never mixed with feat)
 Discoveries for lead: <none | list>
 ```
 
+Below it, mark each proposed commit with a 💾 block: the functionality first, then the refactor if any (never mixed). Add a body only when the subject doesn't explain why (or for a breaking change), and a `Refs #<n>` footer.
+
+````markdown
+💾 Commit 1 of <total>: <what it contains, in one line>
+
+```text
+<type>(<scope>): <subject>
+
+<body, only if the why isn't obvious>
+
+Refs #<n>
+```
+
+Who commits: you, by default. Tell me explicitly if you want me to, for this one or for the rest of the session.
+````
+
 Below it, propose the work log comment for the issue (`github-workflows` skill): decisions, discoveries, every verification round with its findings, manual checks pending.
 
-Then **wait**. Commit, and post the comment, only after I explicitly approve in this session, following the repo's conventions. Never push, open PRs or merge unless I ask. When I approve, the next step is `/accept #<n>`.
+Then **wait**. Who commits is my call, and by default it's me: never commit unless I explicitly ask you to after reviewing the 💾 block. If I say you make the commits for the rest of the session, commit each 💾 block once I approve it, and never one I haven't seen. Post the comment only on my yes. Never push, open PRs or merge unless I ask. When I approve, the next step is `/accept #<n>`.

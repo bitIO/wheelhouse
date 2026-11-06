@@ -1,6 +1,6 @@
 ---
 name: pair
-description: Pair programming on an already refined story. The AI drives in small test-driven steps (one test, then the minimum code) and stops after each step for the navigator's go-ahead. Never commits.
+description: Pair programming on an already refined story. The AI drives in small test-driven steps (one test, then the minimum code) and stops after each step for the navigator's go-ahead. Flags commit points; the human commits unless they explicitly delegate it.
 disable-model-invocation: true
 ---
 
@@ -14,6 +14,7 @@ You drive: you write the code. I navigate: I review, decide and say yes or no. O
 - Check the plan against the current code. If something no longer fits, tell me before you start.
 - If there's no plan, propose one of at most 5 bullets and wait for my approval.
 - Load the knowledge skills the story needs (stack conventions, `check-testing`).
+- Tell me once, before you start: I make the commits by default; you commit only if I explicitly ask you to, for one commit or for the rest of the session.
 
 ## 2. Test list
 
@@ -71,6 +72,22 @@ When the list is green:
 
 ## 5. Commit
 
-**Never commit.** When there's a good point (tests green, a logical unit), tell me and suggest the message following the repo's conventions. Keep functionality and refactors in separate commits. I make the commit.
+Who commits is my call, and by default it's me: never commit unless I explicitly ask you to after reviewing the 💾 block. If I say you make the commits for the rest of the session, commit each 💾 block once I approve it, and never one I haven't seen.
+
+When there's a good point (tests green, a logical unit), tell me with this block and suggest the message following the repo's conventions. Add a body only when the subject doesn't explain why (or for a breaking change), and a `Refs #<n>` footer with the story's issue. Keep functionality and refactors in separate commits.
+
+````markdown
+💾 Commit point: <why now, in one line>
+
+```text
+<type>(<scope>): <subject>
+
+<body, only if the why isn't obvious>
+
+Refs #<n>
+```
+
+Who commits: you, by default. Tell me explicitly if you want me to, for this one or for the rest of the session.
+````
 
 When the story is done, the next step is `/accept #<n>`.
