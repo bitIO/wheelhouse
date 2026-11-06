@@ -147,7 +147,7 @@ Story 5 repeats the pattern from stories 2–3, so it's delegated. Three checkpo
 
 1. **Plan**: "follows routes/players.ts (story #103) and the error mapper (story #102)".
 2. **Test list**: approved by you, and frozen from then on.
-3. **Result**: all tests green, a `verify` verdict, proposed commits. The AI commits only on your yes.
+3. **Result**: all tests green, a `verify` verdict, proposed commits (each in a 💾 block with its message). The AI commits only on your yes.
 
 ## 5. `/verify #105`
 

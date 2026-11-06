@@ -71,6 +71,18 @@ When the list is green:
 
 ## 5. Commit
 
-**Never commit.** When there's a good point (tests green, a logical unit), tell me and suggest the message following the repo's conventions. Keep functionality and refactors in separate commits. I make the commit.
+**Never commit.** When there's a good point (tests green, a logical unit), tell me with this block and suggest the message following the repo's conventions. Add a body only when the subject doesn't explain why (or for a breaking change), and a `Refs #<n>` footer with the story's issue. Keep functionality and refactors in separate commits. I make the commit.
+
+````markdown
+💾 Commit point: <why now, in one line>
+
+```text
+<type>(<scope>): <subject>
+
+<body, only if the why isn't obvious>
+
+Refs #<n>
+```
+````
 
 When the story is done, the next step is `/accept #<n>`.

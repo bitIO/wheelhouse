@@ -58,11 +58,22 @@ Tests: <list of test names> (all green) · Manual checks pending: <…>
 Changes: <files changed, +/− lines>
 Decided: <judgment calls, if any>
 Verification: <PASS | PASS_WITH_NOTES>, <notes>
-Proposed commits:
-1. feat(<scope>): …
-2. refactor(<scope>): … (if any; never mixed with feat)
 Discoveries for lead: <none | list>
 ```
+
+Below it, mark each proposed commit with a 💾 block: the functionality first, then the refactor if any (never mixed). Add a body only when the subject doesn't explain why (or for a breaking change), and a `Refs #<n>` footer.
+
+````markdown
+💾 Commit 1 of <total>: <what it contains, in one line>
+
+```text
+<type>(<scope>): <subject>
+
+<body, only if the why isn't obvious>
+
+Refs #<n>
+```
+````
 
 Below it, propose the work log comment for the issue (`github-workflows` skill): decisions, discoveries, every verification round with its findings, manual checks pending.
 
