@@ -32,8 +32,9 @@ run --all
 check "install --all exits 0" '[ $? -eq 0 ]'
 check "claude: every skill linked" '[ "$(find "$HOME/.claude/skills" -mindepth 1 -maxdepth 1 -type l | wc -l | tr -d " ")" = "$n_skills" ]'
 check "claude: skill symlink points into repo" '[ "$(readlink "$HOME/.claude/skills/lead")" = "$REPO/skills/workflow/lead" ]'
-check "claude: reviewer agent rendered" 'grep -q "^tools: Read, Grep, Glob, Bash$" "$HOME/.claude/agents/reviewer.md"'
-check "claude: investigator agent gets web tools" 'grep -q "WebFetch, WebSearch" "$HOME/.claude/agents/investigator.md"'
+check "claude: reviewer agent can load skills" 'grep -q "^tools: Read, Grep, Glob, Bash, Skill$" "$HOME/.claude/agents/reviewer.md"'
+check "claude: investigator agent can load skills" 'grep -q "^tools: Read, Grep, Glob, Bash, Skill, WebFetch, WebSearch$" "$HOME/.claude/agents/investigator.md"'
+check "claude: agents have no write tools" '! grep -E "^tools:" "$HOME/.claude/agents/"*.md | grep -qE "\b(Edit|Write)\b"'
 check "claude: agent has no access/web source keys" '! grep -qE "^(access|web):" "$HOME/.claude/agents/investigator.md"'
 for s in $manual; do
   check "opencode: $s is a command, not a skill" '[ -f "$XDG_CONFIG_HOME/opencode/commands/'"$s"'.md" ] && [ ! -e "$XDG_CONFIG_HOME/opencode/skills/'"$s"'" ]'
