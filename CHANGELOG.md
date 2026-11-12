@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.1](https://github.com/bitIO/wheelhouse/compare/v0.6.0...v0.6.1) (2026-11-12)
+
+
+### Bug Fixes
+
+* let the reviewer and investigator agents load skills in Claude Code ([#25](https://github.com/bitIO/wheelhouse/issues/25)) ([ca9621a](https://github.com/bitIO/wheelhouse/commit/ca9621aa153d80115a2145290d276e7caf9c4d34))
+
 ## [0.6.0](https://github.com/bitIO/wheelhouse/compare/v0.5.1...v0.6.0) (2026-11-06)
 
 
