@@ -196,7 +196,7 @@ render_claude_agent() {
   local src=$1 name desc tools
   name="$(fm_get "$src" name)"
   desc="$(fm_get "$src" description)"
-  tools="Read, Grep, Glob, Bash"
+  tools="Read, Grep, Glob, Bash, Skill"
   if [ "$(fm_get "$src" web)" = "true" ]; then tools="$tools, WebFetch, WebSearch"; fi
   printf -- '---\nname: %s\ndescription: %s\ntools: %s\n---\n' "$name" "$(yaml_quote "$desc")" "$tools"
   printf '<!-- %s from subagents/%s.md; edit the source and re-run setup/install.sh -->\n' "$MARK" "$name"
