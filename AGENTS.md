@@ -36,4 +36,6 @@ bash scripts/build-plugin.sh --check
 shellcheck setup/*.sh scripts/*.sh skills/*/*/scripts/*.sh
 ```
 
+Workflow changes that drive git or GitHub (branches, PRs, merges, issues) are also tested live in the throwaway repo `bitIO/wheelhouse-tests`, where anything goes; record the results in the story's work log.
+
 Never push to `main`: work on a `<type>/<slug>` branch and open a PR. Its title is a conventional commit (`feat:`, `fix:`, `docs:`, `refactor:`, `test:`, `chore:`, `ci:`), because squash merge makes it the commit and the changelog entry. Don't bump `version` or edit `CHANGELOG.md`; release-please does ([docs/release.md](docs/release.md)).
