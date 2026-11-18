@@ -1,6 +1,6 @@
 ---
 name: deliver
-description: Delegated delivery of an already refined story. Same test-first discipline as pair, but the AI runs the whole approved test list on its own, gets an independent verification, and stops at three checkpoints (plan, test list, result). Proposes commits; the human commits unless they explicitly delegate it.
+description: Delegated delivery of an already refined story. Same test-first discipline as pair, but the AI runs the whole approved test list on its own, gets an independent verification, and stops at three checkpoints (plan, test list, result). Proposes commits (the human commits unless they explicitly delegate it), then offers to open the PR.
 disable-model-invocation: true
 ---
 
@@ -80,4 +80,4 @@ Who commits: you, by default. Tell me explicitly if you want me to, for this one
 
 Below it, propose the work log comment for the issue (`github-workflows` skill): decisions, discoveries, every verification round with its findings, manual checks pending.
 
-Then **wait**. Who commits is my call, and by default it's me: never commit unless I explicitly ask you to after reviewing the 💾 block. If I say you make the commits for the rest of the session, commit each 💾 block once I approve it, and never one I haven't seen. Post the comment only on my yes. Never push, open PRs or merge unless I ask. When I approve, the next step is `/accept #<n>`.
+Then **wait**. Who commits is my call, and by default it's me: never commit unless I explicitly ask you to after reviewing the 💾 block. If I say you make the commits for the rest of the session, commit each 💾 block once I approve it, and never one I haven't seen. Post the comment only on my yes. Once the 💾 commits are made, offer to open the PR with `verify`'s PR step (it pushes, so only on my yes); no new verification unless the code changed. Never merge: that stays with `/accept #<n>`, the next step when I approve.
