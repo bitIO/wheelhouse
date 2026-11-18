@@ -88,7 +88,7 @@ sequenceDiagram
             Build->>GH: work log comment, on your yes
             You->>Rev: /verify #35;12
             Rev-->>GH: verdict as a comment, on your yes
-            Rev-->>GH: push + PR on a pass, on your yes
+            You->>GH: push + PR on a pass, from the /verify session, on your yes
         else repeats a pattern
             You->>Build: /deliver #35;12
             Build->>You: checkpoints 1 and 2: plan, test list

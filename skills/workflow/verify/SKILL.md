@@ -80,4 +80,4 @@ On PASS or PASS_WITH_NOTES, the session that called the reviewer (never the revi
   <notes, or "No findings">
   ```
 
-- On my yes: `git push -u origin HEAD`, then `gh pr create --base <base> --title "<title>" --body-file <file>`, and give me the link.
+- On my yes: `git push -u origin HEAD`, then `gh pr create --base <base> --title '<title>' --body-file <file>`, and give me the link. The title comes from the issue: single-quote it (escape any `'`) so the shell never expands it.
