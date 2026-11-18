@@ -171,7 +171,7 @@ Findings:
 
 ## 6. `/accept #105`, `/lead #100`, `/accept #100`
 
-- `/accept #105`: every criterion has its evidence, the manual check is confirmed, the PR is proposed with `Closes #105`.
+- `/accept #105`: every criterion has its evidence, the manual check is confirmed, and the PR `/verify` opened with `Closes #105` is merged on your self-accept.
 - `/lead #100`: shows status ("5/8 done, next #106"). It also handles a discovery reported by `/pair` ("the files route streams uploads; NestJS buffers them") by re-gating story #106.
 - `/accept #100`, after the decommission story: a system-level `verify` across the whole epic, a check that the non-goals were respected, the rollback documented, and your sign-off.
 

@@ -24,9 +24,9 @@ flowchart TD
     ST --> SA(["you approve"])
     SA -->|new patterns, high risk| P["/pair #12<br/>you navigate, AI drives<br/>one test → red → green → stop"]
     SA -->|repeats a pattern| D["/deliver #12<br/>AI drives the approved test list<br/>stops at 3 checkpoints"]
-    P --> VE["/verify #12<br/>clean-context reviewer<br/>criteria proven? scope kept? risk checks"]
+    P --> VE["/verify #12<br/>clean-context reviewer<br/>criteria proven? scope kept? risk checks<br/>PR on a pass, on your yes"]
     D --> VE
-    VE --> AC["/accept #12<br/>evidence per criterion, manual checks, PR"]
+    VE --> AC["/accept #12<br/>evidence per criterion, manual checks<br/>merge on approval or self-accept"]
     AC --> SO(["you sign off"])
     SO --> LE["/lead #epic<br/>status, next story, re-plan on discoveries"]
     LE -->|next story| ST
@@ -39,7 +39,7 @@ flowchart TD
 - **`/lead`** runs once per initiative: it interviews you about what's unclear, investigates the repo with evidence, runs the feasibility `gate`, writes the backlog of vertical stories, and asks `skill-advisor` which third-party skills the work needs (rated 🟢 🟡 🔴). After you lock the plan, it writes the issues and installs only the skills you say yes to.
 - **`/story`** refines one story right before it is built: 2–3 acceptance criteria, a story-level gate and a plan of at most five bullets.
 - **`/pair` or `/deliver`** builds it test-first. Use `/pair` for a new pattern or anything high risk, `/deliver` when the story repeats a pattern you already set. The story's gate suggests one.
-- **`/verify`** and **`/accept`** check the result independently, map each criterion to evidence and propose the PR.
+- **`/verify`** and **`/accept`** check the result independently and map each criterion to evidence. `/verify` offers to open the PR on a pass; `/accept` merges it once it's approved or you self-accept, then offers to switch to its base branch and delete the local one.
 - **`/lead #epic`** reports progress and re-plans when a story uncovered something. When every story is closed, `/accept #epic` reviews the epic as a whole.
 
 ## Sequence
@@ -52,7 +52,7 @@ sequenceDiagram
     participant Lead as /lead
     participant Inv as investigator
     participant Adv as skill-advisor
-    participant GH as GitHub issues
+    participant GH as GitHub issues · PRs
     participant Story as /story
     participant Build as /pair · /deliver
     participant Rev as verify (reviewer)
@@ -88,6 +88,7 @@ sequenceDiagram
             Build->>GH: work log comment, on your yes
             You->>Rev: /verify #35;12
             Rev-->>GH: verdict as a comment, on your yes
+            Rev-->>GH: push + PR on a pass, on your yes
         else repeats a pattern
             You->>Build: /deliver #35;12
             Build->>You: checkpoints 1 and 2: plan, test list
@@ -95,12 +96,13 @@ sequenceDiagram
             Rev-->>Build: findings
             Build->>You: checkpoint 3: result + proposed commits
             Build->>GH: work log comment with every verify round, on your yes
+            Build->>GH: push + PR after the commits, on your yes
         end
         Rev-->>You: criteria proven? scope kept? risk checks
         You->>Acc: /accept #35;12
         Acc->>You: evidence per criterion, manual checks
         You-->>Acc: sign off
-        Acc->>GH: PR, epic checklist and work log comment, on your yes
+        Acc->>GH: merge, epic checklist and work log comment, on your yes
         You->>Lead: /lead #35;epic
         Lead->>You: done · next · blocked · re-plan
     end
@@ -114,9 +116,9 @@ Things the sequence shows that the flowchart doesn't:
 
 - **The `investigator` subagent** does the code investigation for `/lead`, so the lead's context stays small. In a tool without subagents (Pi), `/lead` investigates inline.
 - **Who starts the verification.** In `/pair` you run `/verify` yourself when the story is done. `/deliver` asks for the independent verification on its own, between its second and third checkpoints.
-- **Writes to the tracker always wait for your yes**: the story block from `/story`, the PR and the epic checklist from `/accept`, and the work log comments.
+- **Writes to the tracker always wait for your yes**: the story block from `/story`, the PR from `/verify` (or `/deliver` after its commits), the merge and the epic checklist from `/accept`, and the work log comments.
 - **The issue is the work log.** `/pair`, `/deliver`, `/verify` and `/accept` each end with one comment on the story issue: decisions, discoveries (in tests too), the verdict and what's left open. The next session reads them before it starts, so nothing learned stays trapped in a closed chat.
 - **Memory**: `/accept` saves what outlives the work (decisions, non-obvious discoveries) to your memory, engram if it's available. One 🧠 line in the same message as its other approvals tells you, so you can say no. It saves only after your reply, never secrets, personal data or text quoted from issues, and never into repo files. A `Memory after /accept: <store> | ask | off` line in your personal instructions decides it once; `/lead` offers it when it's missing. A repo's `AGENTS.md` can only turn it off.
-- **Commits**: every commit point is marked with 💾 and a ready-to-copy message (a body only when the why isn't obvious, plus `Refs #<n>`). `/pair` flags each point and `/deliver` proposes its commits at checkpoint 3. Both tell you at the start, and in every 💾 block, that you commit by default; the agent commits only if you explicitly ask it to, for one commit or for the rest of the session. Nothing pushes or merges unless you ask.
+- **Commits**: every commit point is marked with 💾 and a ready-to-copy message (a body only when the why isn't obvious, plus `Refs #<n>`). `/pair` flags each point and `/deliver` proposes its commits at checkpoint 3. Both tell you at the start, and in every 💾 block, that you commit by default; the agent commits only if you explicitly ask it to, for one commit or for the rest of the session. Nothing pushes or merges without your yes: `/verify` asks before it pushes and opens the PR, `/accept` before it merges.
 
 > In the sequence source, `#35;` is Mermaid's escape for `#`: in sequence diagrams an unescaped `#` cuts the rest of the message.
