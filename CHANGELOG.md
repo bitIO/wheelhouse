@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.0](https://github.com/bitIO/wheelhouse/compare/v0.6.1...v0.7.0) (2026-11-18)
+
+
+### Features
+
+* open the PR from verify and merge it from accept ([#28](https://github.com/bitIO/wheelhouse/issues/28)) ([2838f66](https://github.com/bitIO/wheelhouse/commit/2838f668fd58369dd41cfdaef3ff3379fdec98a1))
+
 ## [0.6.1](https://github.com/bitIO/wheelhouse/compare/v0.6.0...v0.6.1) (2026-11-12)
 
 
