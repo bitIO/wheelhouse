@@ -16,7 +16,7 @@ Work is done when **I** sign it off, not when the tests are green. Only run this
 4. **Gaps.** If I reject something, classify it:
    - **engineering gap** (doesn't meet a criterion as written): back to `/pair` or `/deliver`
    - **product gap** (the criterion was wrong or missing): back to `/story`, and to `lead` if it changes the epic
-5. **Merge.** Find the story's PR: `gh pr list --state open --search "#<n>" --json number,title,url,headRefName,baseRefName,reviewDecision,mergeStateStatus,closingIssuesReferences`, and keep only the one whose `closingIssuesReferences` contains #<n>. Not the checked-out branch's PR: it may belong to another story. If there's none, offer to open it with `verify`'s PR step (same body, no second template). If there's more than one, ask me which.
+5. **Merge.** Find the story's PR among the issue's linked PRs, which include those linked only from the sidebar: `gh issue view <n> --json closedByPullRequestsReferences`. Keep those whose `repository.owner.login`/`repository.name` match this repo's `nameWithOwner` (`gh repo view --json nameWithOwner`), read each with `gh pr view <number> --json number,title,url,state,headRefName,baseRefName,reviewDecision,mergeStateStatus`, and keep only the `OPEN` ones. Not the checked-out branch's PR: it may belong to another story. If there's none, offer to open it with `verify`'s PR step (same body, no second template). If there's more than one, ask me which.
    - Show its number, title and whether it's approved, and its checks (`gh pr checks <number>`; "no checks reported" is not a failure). If checks are pending or red, say so and stop here.
    - Approved: ask whether to merge #<number>. Not approved: ask whether I self-accept #<number>. GitHub never lets authors approve their own PR, so that yes is the approval.
    - On yes, merge with the repo's method, passing the PR number and the method (`gh pr merge <number> --squash|--merge|--rebase`, from the repo's rules or `gh repo view --json squashMergeAllowed,mergeCommitAllowed,rebaseMergeAllowed`). Never `--delete-branch`: it deletes the local branch and checks out the default branch, which may not be the base.
@@ -24,7 +24,7 @@ Work is done when **I** sign it off, not when the tests are green. Only run this
 6. **Close the loop**, asking before each outward action, in one message:
    - tick the criteria in the issue
    - if the base isn't the default branch, `Closes #<n>` didn't close the issue: offer to close it
-   - if `gh repo view --json deleteBranchOnMerge` is false, remind me: `🧹 Remote branch <branch> is still there: git push origin --delete <branch>` (or `gh api -X DELETE repos/{owner}/{repo}/git/refs/heads/<branch>`). Don't run it.
+   - if `gh repo view --json deleteBranchOnMerge` is false, remind me: `🧹 Remote branch <headRefName> is still there: git push origin --delete <headRefName>` (or `gh api -X DELETE repos/{owner}/{repo}/git/refs/heads/<headRefName>`). Don't run it.
    - switch to the PR's base and pull? (`git switch <baseRefName> && git pull`)
    - delete the local branch? (`git branch -D <headRefName>`, only once the PR is `MERGED`, because after a squash `-d` refuses; git won't delete the checked-out branch, so this needs the switch first)
    - report discoveries to `lead`: propose follow-up stories, don't absorb them
