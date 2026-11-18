@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.1](https://github.com/bitIO/wheelhouse/compare/v0.7.0...v0.7.1) (2026-11-18)
+
+
+### Bug Fixes
+
+* find the story's PR from the issue's linked PRs in accept ([#31](https://github.com/bitIO/wheelhouse/issues/31)) ([714e63e](https://github.com/bitIO/wheelhouse/commit/714e63e2579dc19d12f0738fb1bd9ff3d86e88b3))
+
 ## [0.7.0](https://github.com/bitIO/wheelhouse/compare/v0.6.1...v0.7.0) (2026-11-18)
 
 
