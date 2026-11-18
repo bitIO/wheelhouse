@@ -1,6 +1,6 @@
 ---
 name: verify
-description: Independent verification of a change against its story, using a clean context (the reviewer agent when subagents exist, otherwise a fresh session). Checks that tests prove the acceptance criteria, that scope was respected, and runs risk-based checks. Reports findings; never fixes. Use when the user or deliver asks to verify or review a story's change.
+description: Independent verification of a change against its story, using a clean context (the reviewer agent when subagents exist, otherwise a fresh session). Checks that tests prove the acceptance criteria, that scope was respected, and runs risk-based checks. Reports findings, never fixes; on a pass, offers to open the PR. Use when the user or deliver asks to verify or review a story's change.
 ---
 
 # Verify
@@ -59,3 +59,25 @@ Not verified: <what you couldn't check, and why>
 FAIL means at least one blocker: an unproven criterion, failing commands, a security or data issue, or a scope violation.
 
 After the report, offer to post it to the issue as a work log comment (`github-workflows` skill): verdict, range, findings, not verified. The reviewer never posts; the session that called it does, on my yes. When `deliver` called it, don't post: the verdicts go in deliver's own comment.
+
+## 4. Open the PR
+
+On PASS or PASS_WITH_NOTES, the session that called the reviewer (never the reviewer) offers to push the branch and open the PR, in the same message as the work log offer. When `deliver` called it, the offer comes after its 💾 commits instead.
+
+- **Preconditions.** Open nothing, and say why, if the verdict is FAIL, `git status --porcelain` isn't empty (commit first, then I offer again), or the current branch is the base branch (suggest a `<type>/<slug>` branch). If the branch already has an open PR (`gh pr view --json url,state`), give its link instead.
+- **Base.** The branch the story targets; the repo's default branch (`gh repo view --json defaultBranchRef`) unless the story or I say otherwise.
+- **Title.** The repo's PR convention (`AGENTS.md`, `conventions-git`), else the story line in a few words.
+- **Body.** Use the repo's `pull_request_template.md` if present, filling it with the same content:
+
+  ```markdown
+  Closes #<n>
+
+  ## Acceptance criteria
+  - [x] <criterion>: <test file › name, or manual check and its answer>
+
+  ## Verification
+  <verdict> · Range: <base>..<head> · Commands: <command → result>
+  <notes, or "No findings">
+  ```
+
+- On my yes: `git push -u origin HEAD`, then `gh pr create --base <base> --title "<title>" --body-file <file>`, and give me the link.
